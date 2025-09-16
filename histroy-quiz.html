@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>History Quiz — Rural Digital Education</title>
+  <style>
+    body { font-family: Nunito, sans-serif; background: #f5f7f5; padding: 20px; }
+    .quiz-box { background: #fff; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+    .question { margin: 15px 0; font-weight: 600; }
+    label { display: block; margin: 5px 0; }
+    button { margin-top: 15px; padding: 10px 15px; background: #4a8f3c; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #3a7230; }
+    #result { margin-top: 20px; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="quiz-box">
+    <h1>History Quiz</h1>
+    <form id="quizForm">
+      <div class="question">
+        1. Who was the first President of India?
+        <label><input type="radio" name="q1" value="Rajendra Prasad"> Dr. Rajendra Prasad</label>
+        <label><input type="radio" name="q1" value="S. Radhakrishnan"> Dr. S. Radhakrishnan</label>
+        <label><input type="radio" name="q1" value="Jawaharlal Nehru"> Jawaharlal Nehru</label>
+      </div>
+      <div class="question">
+        2. In which year did India gain independence?
+        <label><input type="radio" name="q2" value="1942"> 1942</label>
+        <label><input type="radio" name="q2" value="1947"> 1947</label>
+        <label><input type="radio" name="q2" value="1950"> 1950</label>
+      </div>
+      <div class="question">
+        3. Who was known as the "Iron Man of India"?
+        <label><input type="radio" name="q3" value="Subhas Chandra Bose"> Subhas Chandra Bose</label>
+        <label><input type="radio" name="q3" value="Vallabhbhai Patel"> Vallabhbhai Patel</label>
+        <label><input type="radio" name="q3" value="Bhagat Singh"> Bhagat Singh</label>
+      </div>
+      <div class="question">
+        4. The Indus Valley Civilization was famous for?
+        <label><input type="radio" name="q4" value="Urban Planning"> Urban Planning</label>
+        <label><input type="radio" name="q4" value="Iron Tools"> Iron Tools</label>
+        <label><input type="radio" name="q4" value="Gunpowder"> Gunpowder</label>
+      </div>
+      <div class="question">
+        5. Who wrote the book "Discovery of India"?
+        <label><input type="radio" name="q5" value="Gandhi"> Mahatma Gandhi</label>
+        <label><input type="radio" name="q5" value="Nehru"> Jawaharlal Nehru</label>
+        <label><input type="radio" name="q5" value="Ambedkar"> B.R. Ambedkar</label>
+      </div>
+      <button type="button" onclick="checkAnswers()">Submit Quiz</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkAnswers() {
+      const answers = { q1: "Rajendra Prasad", q2: "1947", q3: "Vallabhbhai Patel", q4: "Urban Planning", q5: "Nehru" };
+      let score = 0;
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) score++;
+      }
+      document.getElementById("result").textContent = "Your Score: " + score + "/5";
+    }
+  </script>
+</body>
+</html>

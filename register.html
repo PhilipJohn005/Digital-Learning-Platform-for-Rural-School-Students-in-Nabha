@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Register — Rural Digital Education</title>
+  <style>
+    body{font-family:system-ui,Arial;background:#f5f7f5;margin:0;color:#112}
+    header{background:#4a8f3c;color:#fff;padding:14px}
+    .wrap{max-width:720px;margin:28px auto;padding:16px}
+    .card{background:#fff;padding:18px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+    label{display:block;margin-top:12px;font-weight:700}
+    input,select{width:100%;padding:10px;margin-top:6px;border-radius:6px;border:1px solid #d1d5db}
+    .btn{background:#4a8f3c;color:#fff;padding:10px 14px;border:none;border-radius:6px;font-weight:700;cursor:pointer;margin-top:14px}
+  </style>
+</head>
+<body>
+  <header><div style="max-width:900px;margin:0 auto">Rural Digital Education — Register</div></header>
+  <main class="wrap">
+    <div class="card">
+      <form id="regForm">
+        <label for="name">Full name</label>
+        <input id="name" required />
+
+        <label for="role">I am a</label>
+        <select id="role">
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+        </select>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" required />
+
+        <label for="password">Password</label>
+        <input id="password" type="password" required />
+
+        <button class="btn" type="submit">Create account</button>
+      </form>
+    </div>
+  </main>
+  <script>
+    document.getElementById('regForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('Account created (demo).');
+      location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Commerce Quiz — Rural Digital Education</title>
+  <style>
+    body { font-family: Nunito, sans-serif; background: #f5f7f5; padding: 20px; }
+    .quiz-box { background: #fff; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+    .question { margin: 15px 0; font-weight: 600; }
+    label { display: block; margin: 5px 0; }
+    button { margin-top: 15px; padding: 10px 15px; background: #4a8f3c; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #3a7230; }
+    #result { margin-top: 20px; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="quiz-box">
+    <h1>Commerce Quiz</h1>
+    <form id="quizForm">
+      <div class="question">
+        1. What is the primary objective of business?
+        <label><input type="radio" name="q1" value="Profit"> Profit</label>
+        <label><input type="radio" name="q1" value="Charity"> Charity</label>
+        <label><input type="radio" name="q1" value="Service"> Service</label>
+      </div>
+      <div class="question">
+        2. Which is known as the lifeblood of business?
+        <label><input type="radio" name="q2" value="Money"> Money</label>
+        <label><input type="radio" name="q2" value="Credit"> Credit</label>
+        <label><input type="radio" name="q2" value="Finance"> Finance</label>
+      </div>
+      <div class="question">
+        3. Which type of business involves buying and selling of goods?
+        <label><input type="radio" name="q3" value="Trade"> Trade</label>
+        <label><input type="radio" name="q3" value="Industry"> Industry</label>
+        <label><input type="radio" name="q3" value="Service"> Service</label>
+      </div>
+      <div class="question">
+        4. Which book records day-to-day business transactions?
+        <label><input type="radio" name="q4" value="Ledger"> Ledger</label>
+        <label><input type="radio" name="q4" value="Journal"> Journal</label>
+        <label><input type="radio" name="q4" value="Balance Sheet"> Balance Sheet</label>
+      </div>
+      <div class="question">
+        5. Who is considered the father of economics?
+        <label><input type="radio" name="q5" value="Adam Smith"> Adam Smith</label>
+        <label><input type="radio" name="q5" value="Karl Marx"> Karl Marx</label>
+        <label><input type="radio" name="q5" value="David Ricardo"> David Ricardo</label>
+      </div>
+      <button type="button" onclick="checkAnswers()">Submit Quiz</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkAnswers() {
+      const answers = { q1: "Profit", q2: "Finance", q3: "Trade", q4: "Journal", q5: "Adam Smith" };
+      let score = 0;
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) score++;
+      }
+      document.getElementById("result").textContent = "Your Score: " + score + "/5";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rural Digital Education — Courses</title>
+
+  <!-- icons & fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Roboto+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary:#4a8f3c; --primary-dark:#3a7230; --accent:#f5a623;
+      --muted:#6c757d; --bg:#f5f7f5; --card:#fff;
+      --radius:10px; --shadow:0 6px 18px rgba(0,0,0,0.08);
+      --trans: all .25s ease;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Nunito,system-ui,-apple-system,"Segoe UI",Roboto, "Helvetica Neue", Arial;
+      background:var(--bg); color:#213; line-height:1.5;
+    }
+
+    /* header */
+    header{background:linear-gradient(90deg,var(--primary),var(--primary-dark)); color:#fff; padding:16px 20px; box-shadow:var(--shadow)}
+    .header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand i{font-size:28px}
+    .brand h1{margin:0;font-family:Roboto Slab,serif;font-size:20px}
+    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;align-items:center}
+    nav a{color:rgba(255,255,255,0.95);text-decoration:none;font-weight:600}
+    nav a:hover{color:var(--accent)}
+
+    /* language selector & add button */
+    .controls{display:flex;gap:10px;align-items:center}
+    .lang-select{background:white;color:#222;padding:6px 10px;border-radius:8px;border:none;cursor:pointer}
+    .btn{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+    .btn-primary{background:var(--accent);color:#111}
+    .btn-outline{background:transparent;border:2px solid rgba(255,255,255,0.15); color:white}
+
+    /* hero */
+    .hero{height:320px;background-image:url("https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;position:relative}
+    .hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45)}
+    .hero-inner{position:relative;color:white;text-align:center;max-width:900px;padding:16px}
+    .hero h2{font-family:Roboto Slab,serif;margin:0 0 10px;font-size:32px}
+    .hero p{opacity:.95;margin-bottom:12px}
+
+    /* container */
+    .container{max-width:1200px;margin:26px auto;padding:0 16px}
+
+    .section-title{text-align:center;color:var(--primary-dark);font-family:Roboto Slab,serif;margin-bottom:18px}
+
+    .courses-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+    .filter-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+    select.form-control{padding:8px 10px;border-radius:8px;border:1px solid #d1d5db;background:white}
+    .courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:var(--trans);display:flex;flex-direction:column}
+    .card:hover{transform:translateY(-6px)}
+    .card-image{height:140px;background:linear-gradient(90deg,#56ab2f,#a8e063);display:flex;align-items:center;justify-content:center;position:relative}
+    .card-image i{font-size:48px;color:white;opacity:.9}
+    .card-badge{position:absolute;right:12px;top:12px;background:var(--accent);color:#111;padding:6px 10px;border-radius:999px;font-weight:800}
+
+    .card-content{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .card-title{font-size:18px;margin:0;color:var(--primary-dark);font-family:Roboto Slab,serif}
+    .card-description{color:var(--muted);font-size:14px;min-height:48px;overflow:hidden}
+    .card-meta{display:flex;gap:12px;color:var(--muted);font-size:13px}
+    .progress-container{margin-top:6px}
+    .progress-bar{height:8px;background:#eee;border-radius:6px;overflow:hidden}
+    .progress-fill{height:100%;background:var(--primary);width:0%;transition:width 1s ease}
+
+    .card-actions{display:flex;gap:8px;margin-top:auto}
+    .btn.small{padding:8px 10px;font-weight:700;border-radius:8px}
+
+    footer{padding:22px 10px;text-align:center;color:#fff;background:#213; margin-top:26px}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:1100}
+    .modal-backdrop.show{display:flex}
+    .modal-card{background:white;border-radius:12px;max-width:720px;width:94%;padding:18px;box-shadow:0 12px 40px rgba(0,0,0,.35);max-height:90vh;overflow:auto}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .modal-header h3{margin:0}
+    .close-x{background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--muted)}
+
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .form-group{margin-bottom:10px}
+    .form-group label{display:block;margin-bottom:6px;font-weight:700}
+    .form-control{width:100%;padding:10px;border-radius:8px;border:1px solid #d1d5db}
+    .file-label{display:inline-block;padding:10px;border:2px dashed #d1d5db;border-radius:8px;width:100%;text-align:center;cursor:pointer}
+    .file-helper{font-size:13px;color:var(--muted);margin-top:6px}
+
+    /* video modal */
+    .video-modal .modal-card{max-width:900px}
+    video{width:100%;height:auto;border-radius:8px;background:#000;display:block}
+
+    @media (max-width:720px){
+      .form-row{grid-template-columns:1fr}
+      .courses-grid{grid-template-columns:1fr}
+      .header-inner{padding:0}
+      .hero h2{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <i class="fas fa-graduation-cap"></i>
+        <h1>Rural Digital Education</h1>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="controls">
+        <select id="ui-lang" class="lang-select" aria-label="Select language">
+          <option value="en">English</option>
+          <option value="hi">हिंदी</option>
+          <option value="kn">ಕನ್ನಡ</option>
+          <option value="te">తెలుగు</option>
+        </select>
+
+        <button id="open-add" class="btn btn-primary">+ Add Course</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" role="banner">
+    <div class="hero-inner">
+      <h2 data-t="hero_title">Empowering Rural Communities Through Digital Education</h2>
+      <p data-t="hero_desc">Access quality educational resources and locally translated courses for learners of all ages.</p>
+      <button class="btn btn-outline" id="explore-btn" data-t="explore_btn">Explore Courses</button>
+    </div>
+  </section>
+
+  <main class="container" id="courses">
+    <h2 class="section-title" data-t="available_courses">Available Courses</h2>
+
+    <div class="courses-header">
+      <div class="filter-row">
+        <select id="filter-level" class="form-control">
+          <option value="">-- Filter by Level --</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+
+        <select id="filter-lang" class="form-control">
+          <option value="">-- Filter by Language --</option>
+          <option value="English">English</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Kannada">Kannada</option>
+          <option value="Telugu">Telugu</option>
+        </select>
+
+        <button id="clear-filters" class="btn small">Clear</button>
+      </div>
+
+      <div>
+        <span id="courses-count" style="font-weight:700;color:var(--muted)"></span>
+      </div>
+    </div>
+
+    <div class="courses-grid" id="courses-grid">
+      <!-- cards rendered here -->
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div>Rural Digital Education Platform &copy; <span id="yr"></span></div>
+      <div style="font-size:13px;color:#d0d8d0;margin-top:6px" data-t="footer_desc">Bringing quality education to rural communities.</div>
+    </div>
+  </footer>
+
+  <!-- ADD COURSE MODAL -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="add-title">
+      <div class="modal-header">
+        <h3 id="add-title" data-t="modal_title">Add New Course</h3>
+        <button class="close-x" id="close-modal" aria-label="Close">&times;</button>
+      </div>
+
+      <form id="add-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="title" data-t="label_title">Course Title</label>
+            <input id="title" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="level" data-t="label_level">Difficulty Level</label>
+            <select id="level" class="form-control" required>
+              <option value="">Select level</option>
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="desc" data-t="label_desc">Description</label>
+          <textarea id="desc" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="lang" data-t="label_lang">Course Language</label>
+            <select id="lang" class="form-control" required>
+              <option value="">Select language</option>
+              <option value="English">English</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Kannada">Kannada</option>
+              <option value="Telugu">Telugu</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="duration" data-t="label_duration">Duration (weeks)</label>
+            <input id="duration" type="number" min="1" value="4" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label data-t="label_materials">Course Materials</label>
+
+          <div style="display:grid;gap:8px;">
+            <label class="file-label" for="pdf">
+              <i class="fas fa-file-pdf"></i> <span data-t="upload_pdf">Upload PDF Notes</span>
+            </label>
+            <input id="pdf" type="file" accept="application/pdf" style="display:none" />
+
+            <div class="file-helper" id="pdf-helper" data-t="no_file">No file selected</div>
+
+            <label class="file-label" for="video">
+              <i class="fas fa-video"></i> <span data-t="upload_video">Upload Video Lesson</span>
+            </label>
+            <input id="video" type="file" accept="video/*" style="display:none" />
+
+            <div class="file-helper" id="video-helper" data-t="no_file">No file selected</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button type="submit" class="btn btn-primary" data-t="add_btn">Add Course</button>
+          <button type="button" class="btn" id="cancel" data-t="cancel_btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- VIDEO PLAY MODAL -->
+  <div class="modal-backdrop" id="video-modal">
+    <div class="modal-card video-modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h3 id="video-title">Video Lesson</h3>
+        <button class="close-x" id="close-video">&times;</button>
+      </div>
+      <video id="player" controls></video>
+      <div style="margin-top:8px;font-size:13px;color:var(--muted)"><span id="video-name"></span></div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    // --- translations for UI strings (EN / HI / KN / TE) ---
+    const T = {
+      en: {
+        hero_title: "Empowering Rural Communities Through Digital Education",
+        hero_desc: "Access quality educational resources and locally translated courses for learners of all ages.",
+        explore_btn: "Explore Courses",
+        available_courses: "Available Courses",
+        footer_desc: "Bringing quality education to rural communities.",
+        modal_title: "Add New Course",
+        label_title: "Course Title",
+        label_level: "Difficulty Level",
+        label_desc: "Description",
+        label_lang: "Course Language",
+        label_duration: "Duration (weeks)",
+        label_materials: "Course Materials",
+        upload_pdf: "Upload PDF Notes",
+        upload_video: "Upload Video Lesson",
+        no_file: "No file selected",
+        add_btn: "Add Course",
+        cancel_btn: "Cancel",
+        enroll_now: "Enroll Now",
+        view_notes: "View Notes",
+        watch_video: "Watch Video",
+        progress: "Progress",
+        students: "students",
+        course_weeks: "weeks",
+        add_course_success: "Course added successfully!",
+        clear_filters: "Clear"
+      },
+      hi: {
+        hero_title: "डिजिटल शिक्षा के माध्यम से ग्रामीण समुदायों को सशक्त बनाना",
+        hero_desc: "सभी आयु समूहों के लिए स्थानीय भाषाओं में अनुवादित पाठ्यक्रम और गुणवत्तापूर्ण संसाधन उपलब्ध कराएँ।",
+        explore_btn: "कोर्स देखें",
+        available_courses: "उपलब्ध पाठ्यक्रम",
+        footer_desc: "ग्रामीण समुदायों के लिए गुणवत्तापूर्ण शिक्षा लाना।",
+        modal_title: "नया कोर्स जोड़ें",
+        label_title: "कोर्स का नाम",
+        label_level: "कठिनाई स्तर",
+        label_desc: "विवरण",
+        label_lang: "कोर्स भाषा",
+        label_duration: "अवधि (सप्ताह)",
+        label_materials: "कोर्स सामग्री",
+        upload_pdf: "PDF नोट्स अपलोड करें",
+        upload_video: "वीडियो पाठ अपलोड करें",
+        no_file: "किसी फ़ाइल का चयन नहीं हुआ",
+        add_btn: "कोर्स जोड़ें",
+        cancel_btn: "रद्द करें",
+        enroll_now: "नामांकन करें",
+        view_notes: "नोट्स देखें",
+        watch_video: "वीडियो देखें",
+        progress: "प्रगति",
+        students: "छात्र",
+        course_weeks: "सप्ताह",
+        add_course_success: "कोर्स सफलतापूर्वक जोड़ा गया!"
+      },
+      kn: {
+        hero_title: "ಡಿಜಿಟಲ್ ಶಿಕ್ಷಣದ ಮೂಲಕ ಗ್ರಾಮೀಣ ಸಮುದಾಯಗಳನ್ನು ಸಬಲಗೊಳಿಸುವುದು",
+        hero_desc: "ಎಲ್ಲಾ ವಯಸ್ಸಿನ ಅಧ್ಯಯಕರಿಗೆ ಸ್ಥಳೀಯ ಭಾಷೆಗಳಲ್ಲಿ ಕೋರ್ಸ್‌ಗಳು ಮತ್ತು ಸಂಪನ್ಮೂಲಗಳನ್ನು ಒದಗಿಸಿ.",
+        explore_btn: "ಕೋರ್ಸ್‌ಗಳ ಪರಿಶೀಲನೆ",
+        available_courses: "ಲಭ್ಯವಿರುವ ಕೋರ್ಸ್‌ಗಳು",
+        footer_desc: "ಗ್ರಾಮೀಣ ಸಮುದಾಯಗಳಿಗೆ ಗುಣಮಟ್ಟದ ಶಿಕ್ಷಣ.",
+        modal_title: "ಹೊಸ ಕೋರ್ಸ್ ಸೇರಿಸಿ",
+        label_title: "ಕೋರ್ಸ್ ಶೀರ್ಷಿಕೆ",
+        label_level: "ಕಷ್ಟದ ಮಟ್ಟ",
+        label_desc: "ವಿವರಣೆ",
+        label_lang: "ಕೋರ್ಸ್ ಭಾಷೆ",
+        label_duration: "ಅವಧಿ (ವಾರಗಳು)",
+        label_materials: "ಕೋರ್ಸ್ ವಸ್ತುಗಳು",
+        upload_pdf: "PDF ನೋಟ್ಸ್ ಅಪ್ಲೋಡ್ ಮಾಡಿ",
+        upload_video: "ವೀಡಿಯೊ ಪಾಠ ಅಪ್ಲೋಡ್ ಮಾಡಿ",
+        no_file: "ಯಾವುದೇ ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿಲ್ಲ",
+        add_btn: "ಕೋರ್ಸ್ ಸೇರಿಸಿ",
+        cancel_btn: "ರದ್ದುಮಾಡಿ",
+        enroll_now: "ನೋಂದಣಿ ಮಾಡಿ",
+        view_notes: "ನೋಟ್ಸ್ ವೀಕ್ಷಿಸಿ",
+        watch_video: "ವೀಡಿಯೊ ವೀಕ್ಷಿಸಿ",
+        progress: "ಪ್ರಗತಿ",
+        students: "ವಿದ್ಯಾರ್ಥಿಗಳು",
+        course_weeks: "ವಾರಗಳು",
+        add_course_success: "ಕೋರ್ಸ್ ಯಶಸ್ವಿಯಾಗಿ ಸೇರಿಸಲಾಗಿದೆ!"
+      },
+      te: {
+        hero_title: "డిజిటల్ విద్య ద్వారా గ్రామీణ సంఘాలను సాధికారత చేయడం",
+        hero_desc: "అన్ని వయసుల య వినాయకులకు స్థానికంగా అనువాదించిన కోర్సులు మరియు నాణ్యమైన వనరులు అందించండి.",
+        explore_btn: "కోర్సులను అన్వేషించండి",
+        available_courses: "అందుబాటులో ఉన్న కోర్సులు",
+        footer_desc: "గ్రామీణ సముదాయాలకు నాణ్యమైన విద్యను అందిస్తున్నాం.",
+        modal_title: "కొత్త కోర్సు జోడించండి",
+        label_title: "కోర్సు శీర్షిక",
+        label_level: "కష్టం స్థాయి",
+        label_desc: "వర్ణన",
+        label_lang: "కోర్సు భాష",
+        label_duration: "కాలం (వారాలు)",
+        label_materials: "కోర్సు సామగ్రి",
+        upload_pdf: "PDF నోట్స్ అప్లోడ్ చేయండి",
+        upload_video: "వీడియో పాఠం అప్లోడ్ చేయండి",
+        no_file: "ఏ ఫైల్ ఎంచుకోబడలేదు",
+        add_btn: "కోర్సు జోడించండి",
+        cancel_btn: "రద్దు",
+        enroll_now: "నమోదు చేసుకోండి",
+        view_notes: "నోట్స్ చూడండి",
+        watch_video: "వీడియో చూడండి",
+        progress: "పురోగతి",
+        students: "విద్యార్థులు",
+        course_weeks: "వారాలు",
+        add_course_success: "కోర్సు విజయవంతంగా జోడించబడింది!"
+      }
+    };
+
+    // DOM refs
+    const uiLang = document.getElementById('ui-lang');
+    const tNodes = document.querySelectorAll('[data-t]');
+    const openAddBtn = document.getElementById('open-add');
+    const modal = document.getElementById('modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const cancelBtn = document.getElementById('cancel');
+    const addForm = document.getElementById('add-form');
+    const pdfInput = document.getElementById('pdf');
+    const videoInput = document.getElementById('video');
+    const pdfHelper = document.getElementById('pdf-helper');
+    const videoHelper = document.getElementById('video-helper');
+    const coursesGrid = document.getElementById('courses-grid');
+    const filterLevel = document.getElementById('filter-level');
+    const filterLang = document.getElementById('filter-lang');
+    const clearFilters = document.getElementById('clear-filters');
+    const coursesCount = document.getElementById('courses-count');
+    const videoModal = document.getElementById('video-modal');
+    const player = document.getElementById('player');
+    const videoTitle = document.getElementById('video-title');
+    const videoName = document.getElementById('video-name');
+    const closeVideo = document.getElementById('close-video');
+    const yrSpan = document.getElementById('yr');
+
+    const STORAGE_KEY = 'rurallearn_courses_v1';
+    let courses = [];
+
+    // small helper: safe base64 read of a file (returns promise)
+    function fileToBase64(file) {
+      return new Promise((res, rej) => {
+        const fr = new FileReader();
+        fr.onload = () => res(fr.result);
+        fr.onerror = () => rej(new Error('read error'));
+        fr.readAsDataURL(file);
+      });
+    }
+
+    // limit for storing files in localStorage (bytes). localStorage usually limited to ~5-10MB.
+    const MAX_STORE_BYTES = 2 * 1024 * 1024; // 2 MB
+
+    // translate UI function
+    function applyTranslations(lang) {
+      const dict = T[lang] || T.en;
+      tNodes.forEach(n => {
+        const key = n.getAttribute('data-t');
+        if (dict[key]) n.textContent = dict[key];
+      });
+      // update any dynamic helpers
+      updateCourseCount();
+    }
+
+    // load courses from localStorage
+    function loadCourses() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        courses = raw ? JSON.parse(raw) : defaultCourses();
+      } catch (e) {
+        console.warn('failed load courses', e);
+        courses = defaultCourses();
+      }
+    }
+
+    // default sample courses
+    function defaultCourses(){
+      return [
+        {
+          id: genId(),
+          title: "Sustainable Farming Techniques",
+          desc: "Modern sustainable farming practices that increase yield while protecting the environment.",
+          level: "Beginner",
+          lang: "English",
+          duration: 4,
+          progress: 75,
+          students: 128,
+          pdf: null,
+          video: null,
+          createdAt: Date.now()
+        },
+        {
+          id: genId(),
+          title: "Digital Literacy for All Ages",
+          desc: "Master essential computer skills, internet usage, and online safety practices.",
+          level: "Intermediate",
+          lang: "English",
+          duration: 6,
+          progress: 30,
+          students: 89,
+          pdf: null,
+          video: null,
+          createdAt: Date.now()
+        }
+      ];
+    }
+
+    function saveCourses(){
+      try{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
+      }catch(e){
+        console.warn('Could not save courses (storage full?)', e);
+      }
+    }
+
+    function genId(){ return 'c_'+Math.random().toString(36).slice(2,9); }
+
+    // render a single card
+    function renderCard(course){
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.dataset.level = course.level;
+      card.dataset.lang = course.lang;
+      card.innerHTML = `
+        <div class="card-image">
+          <i class="fas fa-book"></i>
+          <div class="card-badge">${escapeHtml(course.level)}</div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">${escapeHtml(course.title)}</h3>
+          <p class="card-description">${escapeHtml(course.desc)}</p>
+          <div class="card-meta">
+            <div class="card-meta-item"><i class="far fa-clock"></i><span>${course.duration} ${getT('course_weeks')}</span></div>
+            <div class="card-meta-item"><i class="fas fa-users"></i><span>${course.students} ${getT('students')}</span></div>
+          </div>
+          <div class="progress-container">
+            <div class="progress-header"><span>${getT('progress')}</span><span>${course.progress || 0}%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${(course.progress||0)}%"></div></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn small btn-primary enroll-btn">${getT('enroll_now')}</button>
+          </div>
+        </div>
+      `;
+
+      // attach materials buttons if exist
+      const actions = card.querySelector('.card-actions');
+
+      if(course.pdf){
+        const a = document.createElement('a');
+        a.href = course.pdf.isBase64 ? course.pdf.data : course.pdf.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.className = 'btn small btn-outline';
+        a.innerHTML = `<i class="fas fa-file-pdf"></i> ${getT('view_notes')}`;
+        actions.prepend(a);
+      }
+
+      if(course.video){
+        const vbtn = document.createElement('button');
+        vbtn.className = 'btn small btn-outline';
+        vbtn.type = 'button';
+        vbtn.innerHTML = `<i class="fas fa-video"></i> ${getT('watch_video')}`;
+        vbtn.addEventListener('click', ()=> openVideo(course));
+        actions.prepend(vbtn);
+      }
+
+      // enroll button handler (example)
+      card.querySelector('.enroll-btn').addEventListener('click', ()=>{
+        course.students = (course.students || 0) + 1;
+        saveCourses();
+        renderAll(); // re-render to update students
+      });
+
+      return card;
+    }
+
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, (m)=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
+
+    function getT(k){ return (T[uiLang.value] && T[uiLang.value][k]) || (T.en && T.en[k]) || k; }
+
+    // render grid based on filters
+    function renderAll(){
+      coursesGrid.innerHTML = '';
+      const level = filterLevel.value;
+      const lang = filterLang.value;
+      const filtered = courses.filter(c=>{
+        if(level && c.level !== level) return false;
+        if(lang && c.lang !== lang) return false;
+        return true;
+      });
+      filtered.forEach(c => coursesGrid.appendChild(renderCard(c)));
+      updateCourseCount(filtered.length);
+      // animate progress fills
+      requestAnimationFrame(()=> {
+        document.querySelectorAll('.progress-fill').forEach(el=>{
+          const w = el.style.width||'0%';
+          el.style.width='0%';
+          setTimeout(()=> el.style.width = w, 40);
+        });
+      });
+    }
+
+    function updateCourseCount(n){
+      const total = (typeof n === 'number') ? n : courses.length;
+      coursesCount.textContent = `${total} ${getT('available_courses') || ''}`;
+      yrSpan.textContent = new Date().getFullYear();
+    }
+
+    // video open
+    function openVideo(course){
+      // if video stored as base64
+      if(course.video.isBase64){
+        player.src = course.video.data;
+      } else if(course.video.url){
+        player.src = course.video.url;
+      } else {
+        alert('Video not available');
+        return;
+      }
+      videoTitle.textContent = course.title;
+      videoName.textContent = course.video.name || '';
+      videoModal.classList.add('show');
+      player.play().catch(()=>{});
+    }
+
+    // close video modal
+    closeVideo.addEventListener('click', ()=>{
+      player.pause(); player.src=''; videoModal.classList.remove('show');
+    });
+
+    // open add modal
+    openAddBtn.addEventListener('click', ()=> modal.classList.add('show'));
+    closeModalBtn.addEventListener('click', ()=> closeAdd());
+    cancelBtn.addEventListener('click', ()=> closeAdd());
+    window.addEventListener('click', (e)=> { if(e.target === modal) closeAdd(); if(e.target === videoModal) { player.pause(); player.src=''; videoModal.classList.remove('show')}});
+
+    function closeAdd(){
+      addForm.reset();
+      pdfHelper.textContent = getT('no_file');
+      videoHelper.textContent = getT('no_file');
+      modal.classList.remove('show');
+    }
+
+    // file helpers
+    pdfInput.addEventListener('change', ()=>{
+      if(pdfInput.files.length) pdfHelper.textContent = pdfInput.files[0].name;
+      else pdfHelper.textContent = getT('no_file');
+    });
+    videoInput.addEventListener('change', ()=>{
+      if(videoInput.files.length) videoHelper.textContent = videoInput.files[0].name;
+      else videoHelper.textContent = getT('no_file');
+    });
+
+    // add form submit
+    addForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const newCourse = {
+        id: genId(),
+        title: document.getElementById('title').value.trim(),
+        desc: document.getElementById('desc').value.trim(),
+        level: document.getElementById('level').value,
+        lang: document.getElementById('lang').value,
+        duration: Number(document.getElementById('duration').value) || 0,
+        progress: 0,
+        students: 0,
+        pdf: null,
+        video: null,
+        createdAt: Date.now()
+      };
+
+      // handle pdf
+      try{
+        if(pdfInput.files.length){
+          const f = pdfInput.files[0];
+          // if small enough, store base64 in localStorage
+          if(f.size <= MAX_STORE_BYTES){
+            const b64 = await fileToBase64(f);
+            newCourse.pdf = { isBase64:true, data:b64, name:f.name };
+          }else{
+            // large file: create temporary blob URL (not persisted on reload)
+            const url = URL.createObjectURL(f);
+            newCourse.pdf = { isBase64:false, url, name:f.name, persisted:false };
+            console.warn('PDF too large to persist in localStorage; will use session blob URL only.');
+          }
+        }
+      }catch(err){ console.warn('pdf read failed',err) }
+
+      // handle video (same strategy)
+      try{
+        if(videoInput.files.length){
+          const v = videoInput.files[0];
+          if(v.size <= MAX_STORE_BYTES){
+            const b64v = await fileToBase64(v);
+            newCourse.video = { isBase64:true, data:b64v, name:v.name };
+          }else{
+            const url = URL.createObjectURL(v);
+            newCourse.video = { isBase64:false, url, name:v.name, persisted:false };
+            console.warn('Video too large to persist in localStorage; will use session blob URL only.');
+          }
+        }
+      }catch(err){ console.warn('video read failed',err) }
+
+      courses.unshift(newCourse);
+      saveCourses();
+      renderAll();
+      closeAdd();
+      alert(getT('add_course_success'));
+    });
+
+    // filters
+    filterLevel.addEventListener('change', renderAll);
+    filterLang.addEventListener('change', renderAll);
+    clearFilters.addEventListener('click', ()=>{
+      filterLevel.value = ''; filterLang.value='';
+      renderAll();
+    });
+
+    // language changes
+    uiLang.addEventListener('change', ()=> {
+      applyTranslations(uiLang.value);
+      renderAll();
+    });
+
+    // helper: set initial UI translations and load data
+    (function init(){
+      loadCourses();
+      applyTranslations(uiLang.value);
+      renderAll();
+      yrSpan.textContent = new Date().getFullYear();
+      // initial helpers
+      pdfHelper.textContent = getT('no_file');
+      videoHelper.textContent = getT('no_file');
+      // make Explore button smooth scroll
+      document.getElementById('explore-btn').addEventListener('click', ()=> document.getElementById('courses').scrollIntoView({behavior:'smooth'}));
+    })();
+
+    // small safety: revoke blob URLs on unload to avoid leaks
+    window.addEventListener('unload', ()=> {
+      courses.forEach(c=>{
+        if(c.pdf && !c.pdf.isBase64 && c.pdf.url) try{ URL.revokeObjectURL(c.pdf.url) }catch(e){}
+        if(c.video && !c.video.isBase64 && c.video.url) try{ URL.revokeObjectURL(c.video.url) }catch(e){}
+      });
+    });
+
+  })();
+  </script>
+</body>
+</html>

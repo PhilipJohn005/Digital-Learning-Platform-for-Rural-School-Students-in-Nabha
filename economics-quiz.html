@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Economics Quiz — Rural Digital Education</title>
+  <style>
+    body { font-family: Nunito, sans-serif; background: #f5f7f5; padding: 20px; }
+    .quiz-box { background: #fff; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+    .question { margin: 15px 0; font-weight: 600; }
+    label { display: block; margin: 5px 0; }
+    button { margin-top: 15px; padding: 10px 15px; background: #4a8f3c; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #3a7230; }
+    #result { margin-top: 20px; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="quiz-box">
+    <h1>Economics Quiz</h1>
+    <form id="quizForm">
+      <div class="question">
+        1. Economics is the study of?
+        <label><input type="radio" name="q1" value="Money"> Money</label>
+        <label><input type="radio" name="q1" value="Wealth"> Wealth</label>
+        <label><input type="radio" name="q1" value="Scarcity & Choices"> Scarcity & Choices</label>
+      </div>
+      <div class="question">
+        2. Which is an example of a microeconomic concept?
+        <label><input type="radio" name="q2" value="GDP"> GDP</label>
+        <label><input type="radio" name="q2" value="Inflation"> Inflation</label>
+        <label><input type="radio" name="q2" value="Demand & Supply"> Demand & Supply</label>
+      </div>
+      <div class="question">
+        3. Which organization controls monetary policy in India?
+        <label><input type="radio" name="q3" value="RBI"> Reserve Bank of India</label>
+        <label><input type="radio" name="q3" value="SEBI"> SEBI</label>
+        <label><input type="radio" name="q3" value="Finance Ministry"> Ministry of Finance</label>
+      </div>
+      <div class="question">
+        4. GDP stands for?
+        <label><input type="radio" name="q4" value="Gross Domestic Product"> Gross Domestic Product</label>
+        <label><input type="radio" name="q4" value="General Domestic Price"> General Domestic Price</label>
+        <label><input type="radio" name="q4" value="Gross Development Plan"> Gross Development Plan</label>
+      </div>
+      <div class="question">
+        5. What is inflation?
+        <label><input type="radio" name="q5" value="Price Rise"> Continuous rise in prices</label>
+        <label><input type="radio" name="q5" value="Price Drop"> Continuous fall in prices</label>
+        <label><input type="radio" name="q5" value="Stable Prices"> Stable prices</label>
+      </div>
+      <button type="button" onclick="checkAnswers()">Submit Quiz</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkAnswers() {
+      const answers = { q1: "Scarcity & Choices", q2: "Demand & Supply", q3: "RBI", q4: "Gross Domestic Product", q5: "Price Rise" };
+      let score = 0;
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) score++;
+      }
+      document.getElementById("result").textContent = "Your Score: " + score + "/5";
+    }
+  </script>
+</body>
+</html>
