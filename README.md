@@ -1,8 +1,9 @@
+# 📘 Digital Learning Platform (Frontend Only)
 # Digital-Learning-Platform-for-Rural-School-Students-in-Nabha
 e-portal learning platform
 A simple, accessible e-portal learning platform frontend designed for rural school students in Nabha. This repository contains a starter template and instructions to get you up and running quickly.
 
-
+**Project:** Digital-Learning-Platform-for-Rural-School-Students-in-Nabha  
 Digital Learning Platform (Frontend only)
 Project: Digital-Learning-Platform-for-Rural-School-Students-in-Nabha
 Single-file prototype using HTML5, CSS3 and  JavaScript.
