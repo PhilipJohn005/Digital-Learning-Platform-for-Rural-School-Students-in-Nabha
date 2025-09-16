@@ -5,7 +5,7 @@ A simple, accessible e-portal learning platform frontend designed for rural scho
 
 Digital Learning Platform (Frontend only)
 Project: Digital-Learning-Platform-for-Rural-School-Students-in-Nabha
-Single-file prototype using HTML5, CSS3 and vanilla JavaScript.
+Single-file prototype using HTML5, CSS3 and  JavaScript.
 Features included:
 - Responsive layout (desktop / tablet / mobile)
 - Home, Courses, Teacher area (frontend only mockups)
