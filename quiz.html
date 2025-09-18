@@ -1,4 +1,4 @@
-<<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
@@ -10,7 +10,7 @@
     header { background: linear-gradient(90deg, #4a8f3c, #3a7230); color: #fff; padding: 16px; text-align: center; }
     header h1 { margin: 0; font-size: 22px; }
     .container { max-width: 1100px; margin: 20px auto; padding: 0 16px; }
-    h2 { text-align: center; color: #3a7230; margin-bottom: 20px; }
+    h2 { text-align: center; color: #3a7230; margin: 40px 0 20px; }
     .subjects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -49,8 +49,9 @@
   </header>
 
   <main class="container">
-    <h2>Select a Subject to Start Quiz</h2>
 
+    <!-- By Subject -->
+    <h2>📘 Select a Subject</h2>
     <div class="subjects-grid">
 
       <div class="card">
@@ -71,7 +72,7 @@
         <h3>History</h3>
         <p>Local & national history modules with timelines and stories.</p>
         <span class="level">Level: Middle</span><br>
-        <a href="histroy-quiz.html" class="btn">Start Quiz</a>
+        <a href="history-quiz.html" class="btn">Start Quiz</a>
       </div>
 
       <div class="card">
@@ -103,6 +104,40 @@
       </div>
 
     </div>
+
+    <!-- By Class -->
+    <h2>🏫 Select Your Class</h2>
+    <div class="subjects-grid">
+
+      <div class="card">
+        <h3>Class 7</h3>
+        <p>All subjects quiz with menu navigation.</p>
+        <span class="level">Level: Class 7</span><br>
+        <a href="quiz7.html" class="btn">Start Quiz</a>
+      </div>
+
+      <div class="card">
+        <h3>Class 8</h3>
+        <p>All subjects quiz with menu navigation.</p>
+        <span class="level">Level: Class 8</span><br>
+        <a href="quiz8.html" class="btn">Start Quiz</a>
+      </div>
+
+      <div class="card">
+        <h3>Class 9</h3>
+        <p>All subjects quiz with menu navigation.</p>
+        <span class="level">Level: Class 9</span><br>
+        <a href="quiz9.html" class="btn">Start Quiz</a>
+      </div>
+
+      <div class="card">
+        <h3>Class 10</h3>
+        <p>All subjects quiz with menu navigation.</p>
+        <span class="level">Level: Class 10</span><br>
+        <a href="quiz10.html" class="btn">Start Quiz</a>
+      </div>
+
+    </div>
   </main>
 
   <footer>
@@ -114,4 +149,3 @@
   </script>
 </body>
 </html>
-
