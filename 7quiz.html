@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Class 7 Quiz — All Subjects</title>
+  <style>
+    body { font-family: Nunito, sans-serif; background: #f5f7f5; padding: 20px; margin:0; }
+    header { text-align:center; margin-bottom:20px; }
+    h1 { color:#2c3e50; }
+
+    /* Navigation */
+    .nav { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:20px; }
+    .nav button {
+      padding:10px 15px;
+      background:#4a8f3c;
+      color:#fff;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+    }
+    .nav button:hover { background:#3a7230; }
+    .nav button.active { background:#2563eb; }
+
+    /* Quiz Card */
+    .quiz-box { display:none; background:#fff; padding:20px; border-radius:10px; max-width:700px; margin:auto; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    .quiz-box.active { display:block; }
+    .question { margin:15px 0; font-weight:600; }
+    label { display:block; margin:5px 0; padding:4px; border-radius:6px; }
+    button.submit-btn {
+      margin-top:15px; padding:10px 15px;
+      background:#2563eb; color:#fff;
+      border:none; border-radius:8px; cursor:pointer;
+    }
+    button.submit-btn:hover { background:#1e4bb8; }
+    #result { margin-top:20px; font-weight:700; }
+    .correct { color:blue; font-weight:bold; }
+    .wrong { color:red; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Class 7 Quiz — All Subjects</h1>
+  </header>
+
+  <!-- Subject Navigation -->
+  <div class="nav">
+    <button onclick="showQuiz('Maths')">Maths</button>
+    <button onclick="showQuiz('Science')">Science</button>
+    <button onclick="showQuiz('Physics')">Physics</button>
+    <button onclick="showQuiz('Chemistry')">Chemistry</button>
+    <button onclick="showQuiz('Biology')">Biology</button>
+    <button onclick="showQuiz('Geography')">Geography</button>
+    <button onclick="showQuiz('History')">History</button>
+    <button onclick="showQuiz('Economics')">Economics</button>
+    <button onclick="showQuiz('Commerce')">Commerce</button>
+    <button onclick="showQuiz('ComputerScience')">Computer Science</button>
+  </div>
+
+  <!-- Quizzes -->
+  <div id="Maths" class="quiz-box"></div>
+  <div id="Science" class="quiz-box"></div>
+  <div id="Physics" class="quiz-box"></div>
+  <div id="Chemistry" class="quiz-box"></div>
+  <div id="Biology" class="quiz-box"></div>
+  <div id="Geography" class="quiz-box"></div>
+  <div id="History" class="quiz-box"></div>
+  <div id="Economics" class="quiz-box"></div>
+  <div id="Commerce" class="quiz-box"></div>
+  <div id="ComputerScience" class="quiz-box"></div>
+
+<script>
+const quizzes = {
+  Maths: [
+    {q:"What is 12 × 8?", opts:["96","108","88","128"], ans:"96"},
+    {q:"Simplify: 35 ÷ 7", opts:["3","5","7","4"], ans:"5"},
+    {q:"LCM of 4 and 6 is?", opts:["12","8","24","16"], ans:"12"},
+    {q:"Square root of 81 is?", opts:["7","8","9","10"], ans:"9"},
+    {q:"Value of π is approx?", opts:["2.14","3.14","3.41","2.71"], ans:"3.14"}
+  ],
+  Science: [
+    {q:"Which planet is known as the Red Planet?", opts:["Earth","Mars","Jupiter","Saturn"], ans:"Mars"},
+    {q:"Which gas do plants release during photosynthesis?", opts:["Oxygen","Carbon Dioxide","Nitrogen","Hydrogen"], ans:"Oxygen"},
+    {q:"Which part of the plant absorbs water?", opts:["Root","Stem","Leaf","Flower"], ans:"Root"},
+    {q:"Which organ pumps blood in humans?", opts:["Brain","Liver","Heart","Kidney"], ans:"Heart"},
+    {q:"What is H2O commonly called?", opts:["Salt","Water","Acid","Sugar"], ans:"Water"}
+  ],
+  Physics: [
+    {q:"What is the SI unit of Force?", opts:["Newton","Joule","Watt","Pascal"], ans:"Newton"},
+    {q:"Speed = ?", opts:["Distance/Time","Time/Distance","Force×Mass","Work/Time"], ans:"Distance/Time"},
+    {q:"Which type of energy is possessed by a moving object?", opts:["Kinetic","Potential","Heat","Sound"], ans:"Kinetic"},
+    {q:"The force that pulls objects toward Earth is?", opts:["Magnetism","Gravity","Friction","Air Resistance"], ans:"Gravity"},
+    {q:"What instrument measures temperature?", opts:["Barometer","Thermometer","Voltmeter","Hygrometer"], ans:"Thermometer"}
+  ],
+  Chemistry: [
+    {q:"What is the chemical formula of water?", opts:["H2O","CO2","O2"], ans:"H2O"},
+    {q:"Which gas is essential for burning?", opts:["Carbon dioxide","Oxygen","Nitrogen"], ans:"Oxygen"},
+    {q:"Which acid is found in lemon?", opts:["Hydrochloric acid","Citric acid","Sulphuric acid"], ans:"Citric acid"},
+    {q:"Which metal is liquid at room temperature?", opts:["Iron","Mercury","Aluminium"], ans:"Mercury"},
+    {q:"The common salt used in food is?", opts:["NaCl","KCl","CaCl2"], ans:"NaCl"}
+  ],
+  Biology: [
+    {q:"Which part of the plant carries out photosynthesis?", opts:["Root","Stem","Leaf"], ans:"Leaf"},
+    {q:"Which is the powerhouse of the cell?", opts:["Nucleus","Mitochondria","Ribosome"], ans:"Mitochondria"},
+    {q:"Which blood cells fight infections?", opts:["RBC","WBC","Platelets"], ans:"WBC"},
+    {q:"Which gas do humans inhale for respiration?", opts:["Carbon dioxide","Oxygen","Nitrogen"], ans:"Oxygen"},
+    {q:"Which is the largest organ inside the human body?", opts:["Heart","Liver","Lungs"], ans:"Liver"}
+  ],
+  Geography: [
+    {q:"Which is the largest continent?", opts:["Asia","Africa","Europe"], ans:"Asia"},
+    {q:"Which is the longest river?", opts:["Amazon","Nile","Ganga"], ans:"Nile"},
+    {q:"The Tropic of Cancer passes through?", opts:["India","Australia","Russia"], ans:"India"},
+    {q:"Highest mountain peak?", opts:["Mount Everest","K2","Kangchenjunga"], ans:"Mount Everest"},
+    {q:"Smallest ocean?", opts:["Indian","Arctic","Atlantic"], ans:"Arctic"}
+  ],
+  History: [
+    {q:"Who was the first Mughal Emperor?", opts:["Babur","Akbar","Shah Jahan"], ans:"Babur"},
+    {q:"Year of Revolt of 1857?", opts:["1857","1858","1860"], ans:"1857"},
+    {q:"Who was the Iron Man of India?", opts:["Sardar Patel","Subhash Chandra Bose","Mahatma Gandhi"], ans:"Sardar Patel"},
+    {q:"Who founded the Maurya Empire?", opts:["Ashoka","Chandragupta Maurya","Bindusara"], ans:"Chandragupta Maurya"},
+    {q:"Father of Indian Constitution?", opts:["B.R. Ambedkar","Mahatma Gandhi","Jawaharlal Nehru"], ans:"B.R. Ambedkar"}
+  ],
+  Economics: [
+    {q:"Which is the primary sector of Indian economy?", opts:["Agriculture","Industry","Services"], ans:"Agriculture"},
+    {q:"What is the currency of India?", opts:["Dollar","Rupee","Pound"], ans:"Rupee"},
+    {q:"Which sector is called tertiary?", opts:["Agriculture","Industry","Services"], ans:"Services"},
+    {q:"Main occupation in rural India?", opts:["Agriculture","Banking","IT Services"], ans:"Agriculture"},
+    {q:"Who prepares Union Budget in India?", opts:["President","Finance Minister","Prime Minister"], ans:"Finance Minister"}
+  ],
+  Commerce: [
+    {q:"Which is the medium of exchange?", opts:["Money","Goods","Barter"], ans:"Money"},
+    {q:"Who is the father of Economics?", opts:["Adam Smith","Karl Marx","Amartya Sen"], ans:"Adam Smith"},
+    {q:"Which tax is indirect?", opts:["Income Tax","GST","Wealth Tax"], ans:"GST"},
+    {q:"Bank deposits are?", opts:["Assets","Liabilities","Both"], ans:"Liabilities"},
+    {q:"Which is a form of e-commerce?", opts:["Online shopping","Cash Payment","Cheque"], ans:"Online shopping"}
+  ],
+  ComputerScience: [
+    {q:"What does CPU stand for?", opts:["Central Processing Unit","Computer Personal Unit","Control Processing Utility"], ans:"Central Processing Unit"},
+    {q:"Which language is used to create web pages?", opts:["HTML","Python","C++"], ans:"HTML"},
+    {q:"What does RAM stand for?", opts:["Random Access Memory","Read Access Memory","Run Active Memory"], ans:"Random Access Memory"},
+    {q:"Which device is output?", opts:["Keyboard","Monitor","Mouse"], ans:"Monitor"},
+    {q:"Binary system uses base?", opts:["2","8","10"], ans:"2"}
+  ]
+};
+
+// Build quizzes dynamically
+for (let subject in quizzes) {
+  const container = document.getElementById(subject);
+  let html = `<h2>${subject} Quiz</h2><form>`;
+  quizzes[subject].forEach((q,i)=>{
+    html += `<div class="question">${i+1}. ${q.q}`;
+    q.opts.forEach(opt=>{
+      html += `<label><input type="radio" name="${subject}_q${i}" value="${opt}"> ${opt}</label>`;
+    });
+    html += `</div>`;
+  });
+  html += `<button type="button" class="submit-btn" onclick="checkAnswers('${subject}')">Submit Quiz</button>`;
+  html += `</form><div id="${subject}_result"></div>`;
+  container.innerHTML = html;
+}
+
+// Navigation function
+function showQuiz(subject) {
+  document.querySelectorAll('.quiz-box').forEach(div=>div.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(btn=>btn.classList.remove('active'));
+  document.getElementById(subject).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Answer checking
+function checkAnswers(subject) {
+  const answers = quizzes[subject].map(q=>q.ans);
+  let score = 0;
+  quizzes[subject].forEach((q,i)=>{
+    const selected = document.querySelector(`input[name="${subject}_q${i}"]:checked`);
+    const options = document.querySelectorAll(`input[name="${subject}_q${i}"]`);
+    options.forEach(opt=>{
+      const label = opt.parentElement;
+      label.classList.remove("correct","wrong");
+      if (opt.value === q.ans && selected && opt.value === selected.value) {
+        label.classList.add("correct"); score++;
+      } else if (selected && opt.value === selected.value && opt.value !== q.ans) {
+        label.classList.add("wrong");
+      }
+    });
+  });
+  document.getElementById(subject+"_result").textContent = "Your Score: " + score + "/" + quizzes[subject].length;
+}
+</script>
+</body>
+</html>
