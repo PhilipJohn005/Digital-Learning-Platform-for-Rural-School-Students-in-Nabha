@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Class 9 Quiz — All Subjects</title>
+  <style>
+    body { font-family: Nunito, sans-serif; background: #f5f7f5; padding: 20px; margin:0; }
+    header { text-align:center; margin-bottom:20px; }
+    h1 { color:#2c3e50; }
+
+    /* Navigation */
+    .nav { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:20px; }
+    .nav button {
+      padding:10px 15px;
+      background:#4a8f3c;
+      color:#fff;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+    }
+    .nav button:hover { background:#3a7230; }
+    .nav button.active { background:#2563eb; }
+
+    /* Quiz Card */
+    .quiz-box { display:none; background:#fff; padding:20px; border-radius:10px; max-width:700px; margin:auto; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    .quiz-box.active { display:block; }
+    .question { margin:15px 0; font-weight:600; }
+    label { display:block; margin:5px 0; padding:4px; border-radius:6px; }
+    button.submit-btn {
+      margin-top:15px; padding:10px 15px;
+      background:#2563eb; color:#fff;
+      border:none; border-radius:8px; cursor:pointer;
+    }
+    button.submit-btn:hover { background:#1e4bb8; }
+    #result { margin-top:20px; font-weight:700; }
+    .correct { color:blue; font-weight:bold; }
+    .wrong { color:red; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Class 9 Quiz — All Subjects</h1>
+  </header>
+
+  <!-- Subject Navigation -->
+  <div class="nav">
+    <button onclick="showQuiz('Maths')">Maths</button>
+    <button onclick="showQuiz('Science')">Science</button>
+    <button onclick="showQuiz('Physics')">Physics</button>
+    <button onclick="showQuiz('Chemistry')">Chemistry</button>
+    <button onclick="showQuiz('Biology')">Biology</button>
+    <button onclick="showQuiz('Geography')">Geography</button>
+    <button onclick="showQuiz('History')">History</button>
+    <button onclick="showQuiz('Economics')">Economics</button>
+    <button onclick="showQuiz('Commerce')">Commerce</button>
+    <button onclick="showQuiz('ComputerScience')">Computer Science</button>
+  </div>
+
+  <!-- Quizzes -->
+  <div id="Maths" class="quiz-box"></div>
+  <div id="Science" class="quiz-box"></div>
+  <div id="Physics" class="quiz-box"></div>
+  <div id="Chemistry" class="quiz-box"></div>
+  <div id="Biology" class="quiz-box"></div>
+  <div id="Geography" class="quiz-box"></div>
+  <div id="History" class="quiz-box"></div>
+  <div id="Economics" class="quiz-box"></div>
+  <div id="Commerce" class="quiz-box"></div>
+  <div id="ComputerScience" class="quiz-box"></div>
+
+<script>
+const quizzes = {
+  Maths: [
+    {q:"What is the solution of x² - 9 = 0?", opts:["x = ±3","x = 9","x = -9"], ans:"x = ±3"},
+    {q:"Value of (a+b)²?", opts:["a²+b²","a²+b²+2ab","a²+b²-2ab"], ans:"a²+b²+2ab"},
+    {q:"What is the cube of 5?", opts:["25","125","225"], ans:"125"},
+    {q:"What is √144?", opts:["10","11","12"], ans:"12"},
+    {q:"The perimeter of a square of side 8 cm is?", opts:["16 cm","32 cm","64 cm"], ans:"32 cm"}
+  ],
+  Science: [
+    {q:"Which gas is used in photosynthesis?", opts:["Oxygen","Carbon dioxide","Nitrogen"], ans:"Carbon dioxide"},
+    {q:"What is the unit of electric current?", opts:["Volt","Ampere","Ohm"], ans:"Ampere"},
+    {q:"Which organelle is called the control center of the cell?", opts:["Nucleus","Mitochondria","Chloroplast"], ans:"Nucleus"},
+    {q:"Acid turns blue litmus into?", opts:["Red","Green","No change"], ans:"Red"},
+    {q:"Which vitamin is produced in skin by sunlight?", opts:["Vitamin A","Vitamin D","Vitamin C"], ans:"Vitamin D"}
+  ],
+  Physics: [
+    {q:"Unit of Work?", opts:["Joule","Watt","Newton"], ans:"Joule"},
+    {q:"Formula of Power?", opts:["Work/Time","Force×Distance","Mass×Acceleration"], ans:"Work/Time"},
+    {q:"Speed of light in vacuum?", opts:["3×10⁸ m/s","3×10⁶ m/s","3×10⁵ m/s"], ans:"3×10⁸ m/s"},
+    {q:"What does a convex lens do?", opts:["Diverge rays","Converge rays","Reflect rays"], ans:"Converge rays"},
+    {q:"What is the acceleration due to gravity on Earth?", opts:["9.8 m/s²","8.9 m/s²","10.8 m/s²"], ans:"9.8 m/s²"}
+  ],
+  Chemistry: [
+    {q:"Atomic number of Oxygen?", opts:["6","8","16"], ans:"8"},
+    {q:"Chemical symbol of Sodium?", opts:["So","Na","S"], ans:"Na"},
+    {q:"pH value of pure water?", opts:["7","0","14"], ans:"7"},
+    {q:"Gas released during photosynthesis?", opts:["Carbon dioxide","Oxygen","Hydrogen"], ans:"Oxygen"},
+    {q:"Which acid is in vinegar?", opts:["Acetic acid","Sulphuric acid","Hydrochloric acid"], ans:"Acetic acid"}
+  ],
+  Biology: [
+    {q:"Which is the largest gland in the human body?", opts:["Liver","Pancreas","Kidney"], ans:"Liver"},
+    {q:"Blood is pumped by?", opts:["Lungs","Heart","Brain"], ans:"Heart"},
+    {q:"Which tissue transports water in plants?", opts:["Xylem","Phloem","Cambium"], ans:"Xylem"},
+    {q:"Which vitamin deficiency causes night blindness?", opts:["Vitamin A","Vitamin C","Vitamin D"], ans:"Vitamin A"},
+    {q:"Basic unit of life?", opts:["Cell","Atom","Tissue"], ans:"Cell"}
+  ],
+  Geography: [
+    {q:"Which is the largest desert in the world?", opts:["Sahara","Gobi","Thar"], ans:"Sahara"},
+    {q:"Which is the deepest ocean?", opts:["Pacific","Atlantic","Indian"], ans:"Pacific"},
+    {q:"The Equator passes through which continent?", opts:["Asia","Africa","Europe"], ans:"Africa"},
+    {q:"Which is the highest plateau in the world?", opts:["Tibetan Plateau","Deccan Plateau","Colorado Plateau"], ans:"Tibetan Plateau"},
+    {q:"Which river is called the Sorrow of Bihar?", opts:["Ganga","Kosi","Yamuna"], ans:"Kosi"}
+  ],
+  History: [
+    {q:"Who was the founder of the Mughal Empire?", opts:["Babur","Akbar","Aurangzeb"], ans:"Babur"},
+    {q:"Who was the last Mughal Emperor?", opts:["Bahadur Shah II","Akbar","Shah Jahan"], ans:"Bahadur Shah II"},
+    {q:"In which year did World War II begin?", opts:["1939","1945","1914"], ans:"1939"},
+    {q:"Who was known as the Napoleon of India?", opts:["Samudragupta","Chandragupta Maurya","Harsha"], ans:"Samudragupta"},
+    {q:"Who wrote the book 'Discovery of India'?", opts:["Mahatma Gandhi","Jawaharlal Nehru","Subhash Chandra Bose"], ans:"Jawaharlal Nehru"}
+  ],
+  Economics: [
+    {q:"GDP stands for?", opts:["Gross Domestic Product","General Domestic Price","Gross Demand Product"], ans:"Gross Domestic Product"},
+    {q:"Which sector is also known as primary sector?", opts:["Agriculture","Industry","Services"], ans:"Agriculture"},
+    {q:"Which is a renewable resource?", opts:["Coal","Petrol","Wind"], ans:"Wind"},
+    {q:"Which is the central bank of India?", opts:["SBI","RBI","PNB"], ans:"RBI"},
+    {q:"Currency of Japan?", opts:["Yen","Won","Dollar"], ans:"Yen"}
+  ],
+  Commerce: [
+    {q:"Trade within a country is called?", opts:["Internal trade","External trade","Foreign trade"], ans:"Internal trade"},
+    {q:"Who is the father of modern economics?", opts:["Adam Smith","Karl Marx","J.M. Keynes"], ans:"Adam Smith"},
+    {q:"GST stands for?", opts:["Goods and Services Tax","General Sales Tax","Global Service Tax"], ans:"Goods and Services Tax"},
+    {q:"Bank loans are shown as?", opts:["Assets","Liabilities","Expenses"], ans:"Liabilities"},
+    {q:"Which one is a digital payment method?", opts:["UPI","Cheque","Cash"], ans:"UPI"}
+  ],
+  ComputerScience: [
+    {q:"Binary system uses which base?", opts:["2","8","10"], ans:"2"},
+    {q:"Full form of URL?", opts:["Uniform Resource Locator","Universal Reference Link","Uniform Reference Locator"], ans:"Uniform Resource Locator"},
+    {q:"Which is the brain of the computer?", opts:["CPU","RAM","ROM"], ans:"CPU"},
+    {q:"HTML is used for?", opts:["Web pages","Databases","Operating Systems"], ans:"Web pages"},
+    {q:"1 KB = ?", opts:["1000 bytes","1024 bytes","100 bytes"], ans:"1024 bytes"}
+  ]
+};
+
+// Build quizzes dynamically
+for (let subject in quizzes) {
+  const container = document.getElementById(subject);
+  let html = `<h2>${subject} Quiz</h2><form>`;
+  quizzes[subject].forEach((q,i)=>{
+    html += `<div class="question">${i+1}. ${q.q}`;
+    q.opts.forEach(opt=>{
+      html += `<label><input type="radio" name="${subject}_q${i}" value="${opt}"> ${opt}</label>`;
+    });
+    html += `</div>`;
+  });
+  html += `<button type="button" class="submit-btn" onclick="checkAnswers('${subject}')">Submit Quiz</button>`;
+  html += `</form><div id="${subject}_result"></div>`;
+  container.innerHTML = html;
+}
+
+// Navigation function
+function showQuiz(subject) {
+  document.querySelectorAll('.quiz-box').forEach(div=>div.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(btn=>btn.classList.remove('active'));
+  document.getElementById(subject).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Answer checking
+function checkAnswers(subject) {
+  let score = 0;
+  quizzes[subject].forEach((q,i)=>{
+    const selected = document.querySelector(`input[name="${subject}_q${i}"]:checked`);
+    const options = document.querySelectorAll(`input[name="${subject}_q${i}"]`);
+    options.forEach(opt=>{
+      const label = opt.parentElement;
+      label.classList.remove("correct","wrong");
+      if (opt.value === q.ans && selected && opt.value === selected.value) {
+        label.classList.add("correct"); score++;
+      } else if (selected && opt.value === selected.value && opt.value !== q.ans) {
+        label.classList.add("wrong");
+      }
+    });
+  });
+  document.getElementById(subject+"_result").textContent = "Your Score: " + score + "/" + quizzes[subject].length;
+}
+</script>
+</body>
+</html>
