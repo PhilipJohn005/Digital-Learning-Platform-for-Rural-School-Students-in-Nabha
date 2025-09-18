@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .quiz-container {
+      background: #fff;
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    h2 {
+      color: #2c7a2c;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .question {
+      margin: 15px 0;
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #2c7a2c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #256025;
+    }
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2>Math Quiz</h2>
+    <form id="quizForm">
+      <div class="question">
+        1. What is 5 + 7?
+        <label><input type="radio" name="q1" value="10"> 10</label>
+        <label><input type="radio" name="q1" value="12"> 12</label>
+        <label><input type="radio" name="q1" value="14"> 14</label>
+      </div>
+
+      <div class="question">
+        2. What is the square root of 81?
+        <label><input type="radio" name="q2" value="7"> 7</label>
+        <label><input type="radio" name="q2" value="9"> 9</label>
+        <label><input type="radio" name="q2" value="11"> 11</label>
+      </div>
+
+      <div class="question">
+        3. 15 ÷ 3 =
+        <label><input type="radio" name="q3" value="3"> 3</label>
+        <label><input type="radio" name="q3" value="5"> 5</label>
+        <label><input type="radio" name="q3" value="7"> 7</label>
+      </div>
+
+      <div class="question">
+        4. What is 12 × 6?
+        <label><input type="radio" name="q4" value="72"> 72</label>
+        <label><input type="radio" name="q4" value="68"> 68</label>
+        <label><input type="radio" name="q4" value="64"> 64</label>
+      </div>
+
+      <div class="question">
+        5. Which is a prime number?
+        <label><input type="radio" name="q5" value="21"> 21</label>
+        <label><input type="radio" name="q5" value="17"> 17</label>
+        <label><input type="radio" name="q5" value="27"> 27</label>
+      </div>
+
+      <button type="button" onclick="checkAnswers()">Submit Quiz</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "12",
+      q2: "9",
+      q3: "5",
+      q4: "72",
+      q5: "17"
+    };
+
+    // Load saved answers and score
+    window.onload = () => {
+      const saved = JSON.parse(localStorage.getItem("quizData")) || {};
+      for (let q in saved.answers) {
+        const option = document.querySelector(
+          `input[name="${q}"][value="${saved.answers[q]}"]`
+        );
+        if (option) option.checked = true;
+      }
+      if (saved.score !== undefined) {
+        document.getElementById("result").innerText =
+          `Last score: ${saved.score} out of ${Object.keys(answers).length}`;
+      }
+    };
+
+    function checkAnswers() {
+      let score = 0;
+      let total = Object.keys(answers).length;
+      let userAnswers = {};
+
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected) {
+          userAnswers[q] = selected.value;
+          if (selected.value === answers[q]) {
+            score++;
+          }
+        }
+      }
+
+      // Save answers & score to localStorage
+      localStorage.setItem(
+        "quizData",
+        JSON.stringify({ answers: userAnswers, score })
+      );
+
+      document.getElementById("result").innerText =
+        `You scored ${score} out of ${total}`;
+    }
+  </script>
+</body>
+</html>
