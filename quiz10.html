@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Class 10 Quiz — All Subjects</title>
+  <style>
+    body { font-family: Nunito, sans-serif; background: #f5f7f5; padding: 20px; margin:0; }
+    header { text-align:center; margin-bottom:20px; }
+    h1 { color:#2c3e50; }
+
+    /* Navigation */
+    .nav { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:20px; }
+    .nav button {
+      padding:10px 15px;
+      background:#4a8f3c;
+      color:#fff;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+    }
+    .nav button:hover { background:#3a7230; }
+    .nav button.active { background:#2563eb; }
+
+    /* Quiz Card */
+    .quiz-box { display:none; background:#fff; padding:20px; border-radius:10px; max-width:700px; margin:auto; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    .quiz-box.active { display:block; }
+    .question { margin:15px 0; font-weight:600; }
+    label { display:block; margin:5px 0; padding:4px; border-radius:6px; }
+    button.submit-btn {
+      margin-top:15px; padding:10px 15px;
+      background:#2563eb; color:#fff;
+      border:none; border-radius:8px; cursor:pointer;
+    }
+    button.submit-btn:hover { background:#1e4bb8; }
+    #result { margin-top:20px; font-weight:700; }
+    .correct { color:blue; font-weight:bold; }
+    .wrong { color:red; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Class 10 Quiz — All Subjects</h1>
+  </header>
+
+  <!-- Subject Navigation -->
+  <div class="nav">
+    <button onclick="showQuiz('Maths')">Maths</button>
+    <button onclick="showQuiz('Science')">Science</button>
+    <button onclick="showQuiz('Physics')">Physics</button>
+    <button onclick="showQuiz('Chemistry')">Chemistry</button>
+    <button onclick="showQuiz('Biology')">Biology</button>
+    <button onclick="showQuiz('Geography')">Geography</button>
+    <button onclick="showQuiz('History')">History</button>
+    <button onclick="showQuiz('Economics')">Economics</button>
+    <button onclick="showQuiz('Commerce')">Commerce</button>
+    <button onclick="showQuiz('ComputerScience')">Computer Science</button>
+  </div>
+
+  <!-- Quizzes -->
+  <div id="Maths" class="quiz-box"></div>
+  <div id="Science" class="quiz-box"></div>
+  <div id="Physics" class="quiz-box"></div>
+  <div id="Chemistry" class="quiz-box"></div>
+  <div id="Biology" class="quiz-box"></div>
+  <div id="Geography" class="quiz-box"></div>
+  <div id="History" class="quiz-box"></div>
+  <div id="Economics" class="quiz-box"></div>
+  <div id="Commerce" class="quiz-box"></div>
+  <div id="ComputerScience" class="quiz-box"></div>
+
+<script>
+const quizzes = {
+  Maths: [
+    {q:"What is the quadratic formula used for?", opts:["Solving linear equations","Solving quadratic equations","Finding factors"], ans:"Solving quadratic equations"},
+    {q:"Value of sin²θ + cos²θ?", opts:["0","1","2"], ans:"1"},
+    {q:"If x=2, value of 2x³?", opts:["16","8","12"], ans:"16"},
+    {q:"Area of a circle with radius 7 cm?", opts:["154 cm²","144 cm²","164 cm²"], ans:"154 cm²"},
+    {q:"What is 1/√2 approximately?", opts:["0.5","0.707","1.41"], ans:"0.707"}
+  ],
+  Science: [
+    {q:"Which law explains the relation of force, mass and acceleration?", opts:["Newton's First Law","Newton's Second Law","Newton's Third Law"], ans:"Newton's Second Law"},
+    {q:"Which acid is present in the stomach?", opts:["HCl","H2SO4","HNO3"], ans:"HCl"},
+    {q:"Which is the universal solvent?", opts:["Alcohol","Water","Benzene"], ans:"Water"},
+    {q:"Which type of energy is used in solar panels?", opts:["Thermal","Nuclear","Solar"], ans:"Solar"},
+    {q:"Unit of electric resistance?", opts:["Ohm","Volt","Ampere"], ans:"Ohm"}
+  ],
+  Physics: [
+    {q:"Work done = ?", opts:["Force × Distance","Mass × Acceleration","Power × Time"], ans:"Force × Distance"},
+    {q:"Laws of motion were given by?", opts:["Newton","Einstein","Galileo"], ans:"Newton"},
+    {q:"Speed of sound in air at room temperature?", opts:["343 m/s","300 m/s","400 m/s"], ans:"343 m/s"},
+    {q:"SI unit of Power?", opts:["Watt","Joule","Newton"], ans:"Watt"},
+    {q:"Instrument used to measure voltage?", opts:["Voltmeter","Ammeter","Barometer"], ans:"Voltmeter"}
+  ],
+  Chemistry: [
+    {q:"Which gas is released during respiration?", opts:["Carbon dioxide","Oxygen","Nitrogen"], ans:"Carbon dioxide"},
+    {q:"Chemical formula of Ammonia?", opts:["NH3","NO2","N2"], ans:"NH3"},
+    {q:"Which element has atomic number 1?", opts:["Oxygen","Hydrogen","Helium"], ans:"Hydrogen"},
+    {q:"Which metal is extracted from Bauxite?", opts:["Iron","Aluminium","Copper"], ans:"Aluminium"},
+    {q:"Which acid is known as Oil of Vitriol?", opts:["Sulphuric acid","Nitric acid","Hydrochloric acid"], ans:"Sulphuric acid"}
+  ],
+  Biology: [
+    {q:"Which part of the cell contains hereditary material?", opts:["Mitochondria","Nucleus","Ribosome"], ans:"Nucleus"},
+    {q:"Which blood group is known as universal donor?", opts:["O","AB","A"], ans:"O"},
+    {q:"Process of losing water through leaves?", opts:["Transpiration","Respiration","Photosynthesis"], ans:"Transpiration"},
+    {q:"Which organ purifies blood in humans?", opts:["Liver","Kidney","Heart"], ans:"Kidney"},
+    {q:"Which process converts glucose into energy?", opts:["Respiration","Transpiration","Digestion"], ans:"Respiration"}
+  ],
+  Geography: [
+    {q:"Which is the largest river in India?", opts:["Ganga","Yamuna","Brahmaputra"], ans:"Ganga"},
+    {q:"Which ocean surrounds the Maldives?", opts:["Indian Ocean","Pacific Ocean","Atlantic Ocean"], ans:"Indian Ocean"},
+    {q:"Which plateau is called the Deccan Plateau?", opts:["Southern India","Northern India","Eastern India"], ans:"Southern India"},
+    {q:"Which is the hottest desert in the world?", opts:["Sahara","Thar","Kalahari"], ans:"Sahara"},
+    {q:"Which strait separates India and Sri Lanka?", opts:["Palk Strait","Malacca Strait","Hormuz Strait"], ans:"Palk Strait"}
+  ],
+  History: [
+    {q:"Who was the last Governor-General of India?", opts:["Lord Mountbatten","C. Rajagopalachari","Lord Wavell"], ans:"C. Rajagopalachari"},
+    {q:"Who founded the Indian National Congress?", opts:["A.O. Hume","Dadabhai Naoroji","Mahatma Gandhi"], ans:"A.O. Hume"},
+    {q:"In which year did Quit India Movement start?", opts:["1940","1942","1947"], ans:"1942"},
+    {q:"Who was known as Netaji?", opts:["Subhash Chandra Bose","Bhagat Singh","Mahatma Gandhi"], ans:"Subhash Chandra Bose"},
+    {q:"Who gave the slogan 'Do or Die'?", opts:["Mahatma Gandhi","Jawaharlal Nehru","Bal Gangadhar Tilak"], ans:"Mahatma Gandhi"}
+  ],
+  Economics: [
+    {q:"Which sector is the backbone of Indian economy?", opts:["Agriculture","Industry","Services"], ans:"Agriculture"},
+    {q:"What is inflation?", opts:["Rise in general price level","Fall in production","Increase in employment"], ans:"Rise in general price level"},
+    {q:"Currency of UK?", opts:["Pound","Euro","Dollar"], ans:"Pound"},
+    {q:"Which is a planned economy?", opts:["India","USA","China"], ans:"China"},
+    {q:"Which organization publishes World Development Report?", opts:["World Bank","IMF","UN"], ans:"World Bank"}
+  ],
+  Commerce: [
+    {q:"Which is the secondary sector?", opts:["Industry","Agriculture","Services"], ans:"Industry"},
+    {q:"Banking Regulation Act was passed in?", opts:["1949","1950","1951"], ans:"1949"},
+    {q:"Which tax replaced most indirect taxes in India?", opts:["GST","Income Tax","Custom Duty"], ans:"GST"},
+    {q:"Who regulates stock markets in India?", opts:["SEBI","RBI","Finance Ministry"], ans:"SEBI"},
+    {q:"Which one is a money market instrument?", opts:["Treasury Bills","Shares","Debentures"], ans:"Treasury Bills"}
+  ],
+  ComputerScience: [
+    {q:"Which programming language is known as the mother of all languages?", opts:["C","Python","Java"], ans:"C"},
+    {q:"IP address is in which number system?", opts:["Binary","Decimal","Hexadecimal"], ans:"Decimal"},
+    {q:"Full form of SQL?", opts:["Structured Query Language","System Query Language","Sequential Query Logic"], ans:"Structured Query Language"},
+    {q:"Which device stores permanent memory?", opts:["ROM","RAM","Cache"], ans:"ROM"},
+    {q:"Which company developed Windows OS?", opts:["Microsoft","Apple","Google"], ans:"Microsoft"}
+  ]
+};
+
+// Build quizzes dynamically
+for (let subject in quizzes) {
+  const container = document.getElementById(subject);
+  let html = `<h2>${subject} Quiz</h2><form>`;
+  quizzes[subject].forEach((q,i)=>{
+    html += `<div class="question">${i+1}. ${q.q}`;
+    q.opts.forEach(opt=>{
+      html += `<label><input type="radio" name="${subject}_q${i}" value="${opt}"> ${opt}</label>`;
+    });
+    html += `</div>`;
+  });
+  html += `<button type="button" class="submit-btn" onclick="checkAnswers('${subject}')">Submit Quiz</button>`;
+  html += `</form><div id="${subject}_result"></div>`;
+  container.innerHTML = html;
+}
+
+// Navigation function
+function showQuiz(subject) {
+  document.querySelectorAll('.quiz-box').forEach(div=>div.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(btn=>btn.classList.remove('active'));
+  document.getElementById(subject).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Answer checking
+function checkAnswers(subject) {
+  let score = 0;
+  quizzes[subject].forEach((q,i)=>{
+    const selected = document.querySelector(`input[name="${subject}_q${i}"]:checked`);
+    const options = document.querySelectorAll(`input[name="${subject}_q${i}"]`);
+    options.forEach(opt=>{
+      const label = opt.parentElement;
+      label.classList.remove("correct","wrong");
+      if (opt.value === q.ans && selected && opt.value === selected.value) {
+        label.classList.add("correct"); score++;
+      } else if (selected && opt.value === selected.value && opt.value !== q.ans) {
+        label.classList.add("wrong");
+      }
+    });
+  });
+  document.getElementById(subject+"_result").textContent = "Your Score: " + score + "/" + quizzes[subject].length;
+}
+</script>
+</body>
+</html>
