@@ -11,7 +11,9 @@
     .card{background:#fff;padding:18px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.06)}
     label{display:block;margin-top:12px;font-weight:700}
     input,select{width:100%;padding:10px;margin-top:6px;border-radius:6px;border:1px solid #d1d5db}
-    .btn{background:#4a8f3c;color:#fff;padding:10px 14px;border:none;border-radius:6px;font-weight:700;cursor:pointer;margin-top:14px}
+    .btn{background:#4a8f3c;color:#fff;padding:10px 14px;border:none;border-radius:6px;font-weight:700;cursor:pointer;margin-top:14px;width:100%}
+    .note{text-align:center;margin-top:14px}
+    .note a{color:#4a8f3c;text-decoration:none;font-weight:600}
   </style>
 </head>
 <body>
@@ -36,13 +38,21 @@
 
         <button class="btn" type="submit">Create account</button>
       </form>
+      <p class="note">Already have an account? <a href="student-portal.html">Login here</a></p>
     </div>
   </main>
   <script>
     document.getElementById('regForm').addEventListener('submit', function(e){
       e.preventDefault();
-      alert('Account created (demo).');
-      location.href = 'login.html';
+      const user = {
+        name: document.getElementById('name').value,
+        role: document.getElementById('role').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      };
+      localStorage.setItem("registeredUser", JSON.stringify(user));
+      alert('Account created for ' + user.name);
+      location.href = 'student-portal.html';
     });
   </script>
 </body>

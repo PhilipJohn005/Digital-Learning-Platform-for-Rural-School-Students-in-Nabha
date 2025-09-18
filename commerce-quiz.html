@@ -48,6 +48,37 @@
         <label><input type="radio" name="q5" value="Karl Marx"> Karl Marx</label>
         <label><input type="radio" name="q5" value="David Ricardo"> David Ricardo</label>
       </div>
+      <div class="question">
+        6. What is the primary function of accounting?
+        <label><input type="radio" name="q6" value="Record Transactions"> Record Transactions</label>
+        <label><input type="radio" name="q6" value="Manage Employees"> Manage Employees</label>
+        <label><input type="radio" name="q6" value="Sell Products"> Sell Products</label>
+      </div>
+      <div class="question">
+        7. Which type of market has a single seller?
+        <label><input type="radio" name="q7" value="Monopoly"> Monopoly</label>
+        <label><input type="radio" name="q7" value="Oligopoly"> Oligopoly</label>
+        <label><input type="radio" name="q7" value="Perfect Competition"> Perfect Competition</label>
+      </div>
+      <div class="question">
+        8. Which financial statement shows the assets and liabilities of a business?
+        <label><input type="radio" name="q8" value="Balance Sheet"> Balance Sheet</label>
+        <label><input type="radio" name="q8" value="Income Statement"> Income Statement</label>
+        <label><input type="radio" name="q8" value="Cash Flow Statement"> Cash Flow Statement</label>
+      </div>
+      <div class="question">
+        9. GST stands for?
+        <label><input type="radio" name="q9" value="Goods and Services Tax"> Goods and Services Tax</label>
+        <label><input type="radio" name="q9" value="General Sales Tax"> General Sales Tax</label>
+        <label><input type="radio" name="q9" value="Global Service Tax"> Global Service Tax</label>
+      </div>
+      <div class="question">
+        10. Which bank serves as the central bank of India?
+        <label><input type="radio" name="q10" value="RBI"> Reserve Bank of India</label>
+        <label><input type="radio" name="q10" value="SBI"> State Bank of India</label>
+        <label><input type="radio" name="q10" value="HDFC"> HDFC Bank</label>
+      </div>
+
       <button type="button" onclick="checkAnswers()">Submit Quiz</button>
     </form>
     <div id="result"></div>
@@ -55,13 +86,24 @@
 
   <script>
     function checkAnswers() {
-      const answers = { q1: "Profit", q2: "Finance", q3: "Trade", q4: "Journal", q5: "Adam Smith" };
+      const answers = {
+        q1: "Profit",
+        q2: "Finance",
+        q3: "Trade",
+        q4: "Journal",
+        q5: "Adam Smith",
+        q6: "Record Transactions",
+        q7: "Monopoly",
+        q8: "Balance Sheet",
+        q9: "Goods and Services Tax",
+        q10: "RBI"
+      };
       let score = 0;
       for (let q in answers) {
         const selected = document.querySelector(`input[name="${q}"]:checked`);
         if (selected && selected.value === answers[q]) score++;
       }
-      document.getElementById("result").textContent = "Your Score: " + score + "/5";
+      document.getElementById("result").textContent = "Your Score: " + score + "/10";
     }
   </script>
 </body>
