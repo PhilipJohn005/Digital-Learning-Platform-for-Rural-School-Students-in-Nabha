@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Economics Quiz — Rural Digital Education</title>
+  <style>
+    body { font-family: Nunito, sans-serif; background: #f5f7f5; padding: 20px; }
+    .quiz-box { background: #fff; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+    .question { margin: 15px 0; font-weight: 600; }
+    label { display: block; margin: 5px 0; padding: 5px; border-radius: 5px; }
+    .correct { background-color: #d4edda; color: #155724; }
+    .wrong { background-color: #f8d7da; color: #721c24; }
+    button { margin-top: 15px; padding: 10px 15px; background: #4a8f3c; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #3a7230; }
+    #result { margin-top: 20px; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="quiz-box">
+    <h1>Economics Quiz</h1>
+    <form id="quizForm">
+      <!-- Questions -->
+      <div class="question" data-q="q1">
+        1. Economics is the study of?
+        <label><input type="radio" name="q1" value="Money"> Money</label>
+        <label><input type="radio" name="q1" value="Wealth"> Wealth</label>
+        <label><input type="radio" name="q1" value="Scarcity & Choices"> Scarcity & Choices</label>
+      </div>
+      <div class="question" data-q="q2">
+        2. Which is an example of a microeconomic concept?
+        <label><input type="radio" name="q2" value="GDP"> GDP</label>
+        <label><input type="radio" name="q2" value="Inflation"> Inflation</label>
+        <label><input type="radio" name="q2" value="Demand & Supply"> Demand & Supply</label>
+      </div>
+      <div class="question" data-q="q3">
+        3. Which organization controls monetary policy in India?
+        <label><input type="radio" name="q3" value="RBI"> Reserve Bank of India</label>
+        <label><input type="radio" name="q3" value="SEBI"> SEBI</label>
+        <label><input type="radio" name="q3" value="Finance Ministry"> Ministry of Finance</label>
+      </div>
+      <div class="question" data-q="q4">
+        4. GDP stands for?
+        <label><input type="radio" name="q4" value="Gross Domestic Product"> Gross Domestic Product</label>
+        <label><input type="radio" name="q4" value="General Domestic Price"> General Domestic Price</label>
+        <label><input type="radio" name="q4" value="Gross Development Plan"> Gross Development Plan</label>
+      </div>
+      <div class="question" data-q="q5">
+        5. What is inflation?
+        <label><input type="radio" name="q5" value="Price Rise"> Continuous rise in prices</label>
+        <label><input type="radio" name="q5" value="Price Drop"> Continuous fall in prices</label>
+        <label><input type="radio" name="q5" value="Stable Prices"> Stable prices</label>
+      </div>
+      <div class="question" data-q="q6">
+        6. Which of these is a factor of production?
+        <label><input type="radio" name="q6" value="Labor"> Labor</label>
+        <label><input type="radio" name="q6" value="Goods"> Goods</label>
+        <label><input type="radio" name="q6" value="Services"> Services</label>
+      </div>
+      <div class="question" data-q="q7">
+        7. Which sector is agriculture classified under?
+        <label><input type="radio" name="q7" value="Primary"> Primary</label>
+        <label><input type="radio" name="q7" value="Secondary"> Secondary</label>
+        <label><input type="radio" name="q7" value="Tertiary"> Tertiary</label>
+      </div>
+      <div class="question" data-q="q8">
+        8. Who is known as the “Father of Economics”?
+        <label><input type="radio" name="q8" value="Adam Smith"> Adam Smith</label>
+        <label><input type="radio" name="q8" value="Karl Marx"> Karl Marx</label>
+        <label><input type="radio" name="q8" value="Keynes"> John Maynard Keynes</label>
+      </div>
+      <div class="question" data-q="q9">
+        9. What is the main objective of monetary policy?
+        <label><input type="radio" name="q9" value="Control Money Supply"> Control Money Supply</label>
+        <label><input type="radio" name="q9" value="Collect Taxes"> Collect Taxes</label>
+        <label><input type="radio" name="q9" value="Regulate Trade"> Regulate Trade</label>
+      </div>
+      <div class="question" data-q="q10">
+        10. Which market deals with short-term funds?
+        <label><input type="radio" name="q10" value="Money Market"> Money Market</label>
+        <label><input type="radio" name="q10" value="Capital Market"> Capital Market</label>
+        <label><input type="radio" name="q10" value="Stock Market"> Stock Market</label>
+      </div>
+
+      <button type="button" onclick="checkAnswers()">Submit Quiz</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkAnswers() {
+      const answers = {
+        q1: "Scarcity & Choices",
+        q2: "Demand & Supply",
+        q3: "RBI",
+        q4: "Gross Domestic Product",
+        q5: "Price Rise",
+        q6: "Labor",
+        q7: "Primary",
+        q8: "Adam Smith",
+        q9: "Control Money Supply",
+        q10: "Money Market"
+      };
+      let score = 0;
+
+      document.querySelectorAll(".question").forEach(qDiv => {
+        const qName = qDiv.getAttribute("data-q");
+        const selected = qDiv.querySelector(`input[name="${qName}"]:checked`);
+        qDiv.querySelectorAll("label").forEach(label => label.classList.remove("correct","wrong"));
+
+        qDiv.querySelectorAll("input").forEach(input => {
+          if(input.value === answers[qName]){
+            input.parentElement.classList.add("correct"); // Highlight correct answer
+          }
+        });
+
+        if(selected && selected.value !== answers[qName]){
+          selected.parentElement.classList.add("wrong"); // Highlight wrong selection
+        }
+
+        if(selected && selected.value === answers[qName]) score++;
+      });
+
+      document.getElementById("result").textContent = "Your Score: " + score + "/10";
+    }
+  </script>
+</body>
+</html>

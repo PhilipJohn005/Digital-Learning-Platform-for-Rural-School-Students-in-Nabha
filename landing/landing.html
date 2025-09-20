@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rural Digital Education — Landing Page</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Roboto+Slab:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="landing.css"/>
+  
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <i class="fas fa-graduation-cap"></i>
+        <h1>Rural Digital Education</h1>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#subjects">Subjects</a></li>
+        </ul>
+      </nav>
+
+      <div class="controls">
+        <select id="ui-lang" class="lang-select" aria-label="Select language">
+          <option value="en">English</option>
+          <option value="hi">हिंदी</option>
+          <option value="kn">ಕನ್ನಡ</option>
+          <option value="te">తెలుగు</option>
+        </select>
+        <button onclick="location.href='../login.html'" class="btn btn-outline">Login</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h2 data-t="hero_title">Empowering Rural Communities Through Digital Education</h2>
+      <p data-t="hero_desc">Access quality educational resources and locally translated courses for learners of all ages.</p>
+      <button onclick="location.href='../login.html'" class="btn btn-primary" data-t="get_started">Get Started</button>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section id="features" class="container">
+    <h2 class="section-title" data-t="platform_features">Platform Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <h3 data-t="interactive_learning">Interactive Learning</h3>
+        <p data-t="interactive_desc">Engage with lessons designed for rural learners with practical examples.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-language"></i>
+        <h3 data-t="multi_lang">Multi-Language Support</h3>
+        <p data-t="multi_lang_desc">Access content in English, Hindi, Kannada, Telugu, and more.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-users"></i>
+        <h3 data-t="all_roles">For All Roles</h3>
+        <p data-t="all_roles_desc">Teachers, students, and parents can collaborate on a single platform.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3 data-t="mobile_friendly">Mobile Friendly</h3>
+        <p data-t="mobile_desc">Learn anytime, anywhere with a responsive and lightweight platform.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="subjects" class="container">
+    <h2 class="section-title" data-t="popular_subjects">Popular Subjects</h2>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3 data-t="math">Mathematics</h3>
+        <p data-t="math_desc">Basic to advanced concepts with real-life applications.</p>
+      </div>
+      <div class="topic-card">
+        <h3 data-t="science">Science</h3>
+        <p data-t="science_desc">Explore experiments, biology, and everyday science.</p>
+      </div>
+      <div class="topic-card">
+        <h3 data-t="history">History</h3>
+        <p data-t="history_desc">Understand cultural roots and global historical events.</p>
+      </div>
+      <div class="topic-card">
+        <h3 data-t="geography">Geography</h3>
+        <p data-t="geo_desc">Study Earth's landscapes, climate, and rural environments.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Rural Digital Education. <span data-t="rights">All rights reserved.</span></p>
+  </footer>
+
+  <!-- AI CHATBOT -->
+  <div id="chatbot-widget" class="chatbot-widget" aria-label="AI Tutor Assistant">
+    <div class="chat-header">
+      <span data-t="ai_tutor">AI Tutor Assistant</span>
+      <button id="close-chat" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <div class="bot-msg" data-t="chat_welcome">👋 Hi! I'm your AI tutor. Ask me anything about our platform or learning resources.</div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chat-input" placeholder="Type your question..." aria-label="Type your question" data-t="chat_placeholder"/>
+      <button id="send-btn" aria-label="Send message" data-t="send">Send</button>
+      <button id="voice-btn" aria-label="Use voice input"><i class="fas fa-microphone"></i></button>
+    </div>
+  </div>
+
+  <!-- Floating Button -->
+  <button id="open-chat" class="floating-btn" aria-label="Open AI tutor chat">
+    <i class="fas fa-robot"></i>
+  </button>
+
+  <script>
+    // --- translations for UI strings (EN / HI / KN / TE) ---
+    const T = {
+      en: {
+        hero_title: "Empowering Rural Communities Through Digital Education",
+        hero_desc: "Access quality educational resources and locally translated courses for learners of all ages.",
+        get_started: "Get Started",
+        platform_features: "Platform Features",
+        interactive_learning: "Interactive Learning",
+        interactive_desc: "Engage with lessons designed for rural learners with practical examples.",
+        multi_lang: "Multi-Language Support",
+        multi_lang_desc: "Access content in English, Hindi, Kannada, Telugu, and more.",
+        all_roles: "For All Roles",
+        all_roles_desc: "Teachers, students, and parents can collaborate on a single platform.",
+        mobile_friendly: "Mobile Friendly",
+        mobile_desc: "Learn anytime, anywhere with a responsive and lightweight platform.",
+        popular_subjects: "Popular Subjects",
+        math: "Mathematics",
+        math_desc: "Basic to advanced concepts with real-life applications.",
+        science: "Science",
+        science_desc: "Explore experiments, biology, and everyday science.",
+        history: "History",
+        history_desc: "Understand cultural roots and global historical events.",
+        geography: "Geography",
+        geo_desc: "Study Earth's landscapes, climate, and rural environments.",
+        rights: "All rights reserved.",
+        ai_tutor: "AI Tutor Assistant",
+        chat_welcome: "👋 Hi! I'm your AI tutor. Ask me anything about our platform or learning resources.",
+        chat_placeholder: "Type your question...",
+        send: "Send"
+      },
+      hi: {
+        hero_title: "डिजिटल शिक्षा के माध्यम से ग्रामीण समुदायों को सशक्त बनाना",
+        hero_desc: "सभी आयु समूहों के लिए स्थानीय भाषाओं में अनुवादित पाठ्यक्रम और गुणवत्तापूर्ण संसाधन उपलब्ध कराएँ।",
+        get_started: "शुरू करें",
+        platform_features: "प्लेटफ़ॉर्म सुविधाएँ",
+        interactive_learning: "इंटरैक्टिव लर्निंग",
+        interactive_desc: "ग्रामीण शिक्षार्थियों के लिए व्यावहारिक उदाहरणों के साथ बनाए गए पाठों के साथ जुड़ें।",
+        multi_lang: "बहु-भाषा समर्थन",
+        multi_lang_desc: "अंग्रेजी, हिंदी, कन्नड़, तेलुगु और अन्य भाषाओं में सामग्री तक पहुंचें।",
+        all_roles: "सभी भूमिकाओं के लिए",
+        all_roles_desc: "शिक्षक, छात्र और अभिभावक एक ही प्लेटफॉर्म पर सहयोग कर सकते हैं।",
+        mobile_friendly: "मोबाइल अनुकूल",
+        mobile_desc: "एक उत्तरदायी और हल्के प्लेटफॉर्म के साथ कभी भी, कहीं भी सीखें।",
+        popular_subjects: "लोकप्रिय विषय",
+        math: "गणित",
+        math_desc: "वास्तविक जीवन के अनुप्रयोगों के साथ बुनियादी से उन्नत अवधारणाएँ।",
+        science: "विज्ञान",
+        science_desc: "प्रयोगों, जीव विज्ञान और रोजमर्रा के विज्ञान का अन्वेषण करें।",
+        history: "इतिहास",
+        history_desc: "सांस्कृतिक जड़ों और वैश्विक ऐतिहासिक घटनाओं को समझें।",
+        geography: "भूगोल",
+        geo_desc: "पृथ्वी के परिदृश्य, जलवायु और ग्रामीण वातावरण का अध्ययन करें।",
+        rights: "सर्वाधिकार सुरक्षित।",
+        ai_tutor: "AI ट्यूटर सहायक",
+        chat_welcome: "👋 नमस्ते! मैं आपका AI ट्यूटर हूं। हमारे प्लेटफॉर्म या शिक्षण संसाधनों के बारे में कुछ भी पूछें।",
+        chat_placeholder: "अपना प्रश्न टाइप करें...",
+        send: "भेजें"
+      },
+      kn: {
+        hero_title: "ಡಿಜಿಟಲ್ ಶಿಕ್ಷಣದ ಮೂಲಕ ಗ್ರಾಮೀಣ ಸಮುದಾಯಗಳನ್ನು ಸಬಲಗೊಳಿಸುವುದು",
+        hero_desc: "ಎಲ್ಲಾ ವಯಸ್ಸಿನ ಅಧ್ಯಯಕರಿಗೆ ಸ್ಥಳೀಯ ಭಾಷೆಗಳಲ್ಲಿ ಕೋರ್ಸ್‌ಗಳು ಮತ್ತು ಸಂಪನ್ಮೂಲಗಳನ್ನು ಒದಗಿಸಿ.",
+        get_started: "ಪ್ರಾರಂಭಿಸಿ",
+        platform_features: "ಪ್ಲಾಟ್ಫಾರ್ಮ್ ವೈಶಿಷ್ಟ್ಯಗಳು",
+        interactive_learning: "ಅಂತರಕ್ರಿಯಾತ್ಮಕ ಕಲಿಕೆ",
+        interactive_desc: "ಗ್ರಾಮೀಣ ಕಲಿಯುವವರಿಗೆ ಪ್ರಾಯೋಗಿಕ ಉದಾಹರಣೆಗಳೊಂದಿಗೆ ವಿನ್ಯಾಸಗೊಳಿಸಿದ ಪಾಠಗಳೊಂದಿಗೆ ಒಡಗೂಡಿ.",
+        multi_lang: "ಬಹು-ಭಾಷಾ ಬೆಂಬಲ",
+        multi_lang_desc: "ಇಂಗ್ಲಿಷ್, ಹಿಂದಿ, ಕನ್ನಡ, ತೆಲುಗು ಮತ್ತು ಇತರ ಭಾಷೆಗಳಲ್ಲಿ ವಿಷಯವನ್ನು ಪ್ರವೇಶಿಸಿ.",
+        all_roles: "ಎಲ್ಲಾ ಪಾತ್ರಗಳಿಗೆ",
+        all_roles_desc: "ಏಕೈಕ ವೇದಿಕೆಯಲ್ಲಿ ಶಿಕ್ಷಕರು, ವಿದ್ಯಾರ್ಥಿಗಳು ಮತ್ತು ಪೋಷಕರು ಸಹಕರಿಸಬಹುದು.",
+        mobile_friendly: "ಮೊಬೈಲ್ ಸ್ನೇಹಿ",
+        mobile_desc: "ಪ್ರತಿಕ್ರಿಯಾಶೀಲ ಮತ್ತು ಹಗುರ ವೇದಿಕೆಯೊಂದಿಗೆ ಯಾವುದೇ ಸಮಯದಲ್ಲಿ, ಎಲ್ಲಿಯಾದರೂ ಕಲಿಯಿರಿ.",
+        popular_subjects: "ಜನಪ್ರಿಯ ವಿಷಯಗಳು",
+        math: "ಗಣಿತ",
+        math_desc: "ನಿಜ ಜೀವನದ ಅನ್ವಯಿಕೆಗಳೊಂದಿಗೆ ಮೂಲಭೂತ ಮತ್ತು ಸುಧಾರಿತ ಪರಿಕಲ್ಪನೆಗಳು.",
+        science: "ವಿಜ್ಞಾನ",
+        science_desc: "ಪ್ರಯೋಗಗಳು, ಜೀವವಿಜ್ಞಾನ ಮತ್ತು daily ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ.",
+        history: "ಇತಿಹಾಸ",
+        history_desc: "ಸಾಂಸ್ಕೃತಿಕ ಬೇರುಗಳು ಮತ್ತು ಜಾಗತಿಕ historical ಐತಿಹಾಸಿಕ ಘಟನೆಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ.",
+        geography: "ಭೂಗೋಳ",
+        geo_desc: "ಭೂಮಿಯ ಭೂದೃಶ್ಯ, ಹವಾಮಾನ ಮತ್ತು ಗ್ರಾಮೀಣ ಪರಿಸರಗಳನ್ನು ಅಧ್ಯಯನ ಮಾಡಿ.",
+        rights: "ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.",
+        ai_tutor: "AI ಶಿಕ್ಷಕ ಸಹಾಯಕ",
+        chat_welcome: "👋 ನಮಸ್ಕಾರ! ನಾನು ನಿಮ್ಮ AI ಶಿಕ್ಷಕ. ನಮ್ಮ ವೇದಿಕೆ ಅಥವಾ ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳ ಬಗ್ಗೆ ಏನಾದರೂ ಕೇಳಿ.",
+        chat_placeholder: "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಟೈಪ್ ಮಾಡಿ...",
+        send: "ಕಳುಹಿಸಿ"
+      },
+      te: {
+        hero_title: "డిజిటల్ విద్య ద్వారా గ్రామీణ సంఘాలను సాధికారత చేయడం",
+        hero_desc: "అన్ని వయసుల యువకులకు స్థానికంగా అనువాదించిన కోర్సులు మరియు నాణ్యమైన వనరులు అందించండి.",
+        get_started: "ప్రారంభించండి",
+        platform_features: "ప్లాట్ఫారమ్ లక్షణాలు",
+        interactive_learning: "ఇంటరాక్టివ్ లెర్నింగ్",
+        interactive_desc: "గ్రామీణ అభ్యాసకుల కోసం ఆచరణాత్మక ఉదాహరణలతో రూపొందించబడిన పాఠాలతో నిమగ్నమవ్వండి.",
+        multi_lang: "బహుళ-భాషా మద్దతు",
+        multi_lang_desc: "ఇంగ్లీష్, హిందీ, కన్నడ, తెలుగు మరియు ఇతర భాషలలో కంటెంట్‌ని యాక్సెస్ చేయండి.",
+        all_roles: "అన్ని పాత్రలకు",
+        all_roles_desc: "ఉపాధ్యాయులు, విద్యార్థులు మరియు తల్లిదండ్రులు ఒకే ప్లాట్‌ఫారమ్‌లో సహకరించవచ్చు.",
+        mobile_friendly: "మొబైల్ ఫ్రెండ్లీ",
+        mobile_desc: "ప్రతిస్పందనాత్మక మరియు తేలికపాటి ప్లాట్‌ఫారమ్‌తో ఎప్పుడైనా, ఎక్కడైనా నేర్చుకోండి.",
+        popular_subjects: "జనాదరణ పొందిన విషయాలు",
+        math: "గణితం",
+        math_desc: "నిజ జీవిత అనువర్తనాలతో ప్రాథమిక నుండి అధునాతన భావనలు.",
+        science: "సైన్స్",
+        science_desc: "ప్రయోగాలు, జీవశాస్త్రం మరియు daily సైన్స్‌ని అన్వేషించండి.",
+        history: "చరిత్ర",
+        history_desc: "సాంస్కృతిక మూలాలు మరియు ప్రపంచ historical చారిత్రక సంఘటనలను అర్థం చేసుకోండి.",
+        geography: "భూగోళం",
+        geo_desc: "భూమి యొక్క భూదృశ్యాలు, వాతావరణం మరియు గ్రామీణ వాతావరణాలను అధ్యయనం చేయండి.",
+        rights: "అన్ని హక్కులు రక్షించబడ్డాయి.",
+        ai_tutor: "AI ట్యూటర్ అసిస్టెంట్",
+        chat_welcome: "👋 నమస్కారం! నేను మీ AI ట్యూటర్. మా ప్లాట్‌ఫారమ్ లేదా నేర్చుకునే వనరుల గురించి ఏదైనా అడగండి.",
+        chat_placeholder: "మీ ప్రశ్నను టైప్ చేయండి...",
+        send: "పంపించు"
+      }
+    };
+
+    // DOM refs
+    const uiLang = document.getElementById('ui-lang');
+    const tNodes = document.querySelectorAll('[data-t]');
+    
+    // Chatbot DOM refs
+    const chatWidget = document.getElementById("chatbot-widget");
+    const openChat = document.getElementById("open-chat");
+    const closeChat = document.getElementById("close-chat");
+    const sendBtn = document.getElementById("send-btn");
+    const chatBody = document.getElementById("chat-body");
+    const chatInput = document.getElementById("chat-input");
+    const voiceBtn = document.getElementById("voice-btn");
+
+    // Chatbot questions and responses
+    const chatbotResponses = {
+      "progress": "Your overall progress is 68%. You're doing great! Keep up the consistent work.",
+      "help": "I can help you with: checking your progress, finding resources, explaining concepts, and answering questions about your courses.",
+      "resources": "You can find additional resources in the 'Resources' section of the platform. Is there a specific topic you need resources for?",
+      "hello": "Hello! How can I help you with your learning today?",
+      "thank": "You're welcome! Is there anything else I can help you with?",
+      "default": "I'm not sure I understand. Could you rephrase that? I can help you with course content, progress tracking, and finding resources."
+    };
+
+    // translate UI function
+    function applyTranslations(lang) {
+      const dict = T[lang] || T.en;
+      tNodes.forEach(n => {
+        const key = n.getAttribute('data-t');
+        if (dict[key]) {
+          if (n.tagName === 'INPUT') {
+            n.placeholder = dict[key];
+          } else {
+            n.textContent = dict[key];
+          }
+        }
+      });
+    }
+
+    // Add message to chat
+    function addMessage(text, sender="bot") {
+      const div = document.createElement("div");
+      div.className = sender === "bot" ? "bot-msg" : "user-msg";
+      div.textContent = text;
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // Generate bot response
+    function generateResponse(userInput) {
+      userInput = userInput.toLowerCase().trim();
+      
+      if (userInput.includes("progress") || userInput.includes("how am i doing")) {
+        return chatbotResponses["progress"];
+      } else if (userInput.includes("help") || userInput.includes("what can you do")) {
+        return chatbotResponses["help"];
+      } else if (userInput.includes("resource") || userInput.includes("material")) {
+        return chatbotResponses["resources"];
+      } else if (userInput.includes("hello") || userInput.includes("hi") || userInput.includes("hey")) {
+        return chatbotResponses["hello"];
+      } else if (userInput.includes("thank")) {
+        return chatbotResponses["thank"];
+      } else {
+        return chatbotResponses["default"];
+      }
+    }
+
+    // Initialize the page
+    function init() {
+      // Set up language change listener
+      uiLang.addEventListener('change', () => {
+        applyTranslations(uiLang.value);
+      });
+      
+      // Apply initial translations
+      applyTranslations(uiLang.value);
+
+      // Chatbot functionality
+      openChat.onclick = () => {
+        chatWidget.style.display = "flex";
+        chatInput.focus();
+      };
+
+      closeChat.onclick = () => {
+        chatWidget.style.display = "none";
+        openChat.focus();
+      };
+
+      // Handle send
+      sendBtn.onclick = () => {
+        const q = chatInput.value.trim();
+        if(!q) return;
+        addMessage(q, "user");
+        chatInput.value = "";
+
+        // Show typing indicator
+        const typingIndicator = document.createElement("div");
+        typingIndicator.className = "bot-msg";
+        typingIndicator.innerHTML = "<span>...</span>";
+        chatBody.appendChild(typingIndicator);
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Bot response after a short delay
+        setTimeout(() => {
+          chatBody.removeChild(typingIndicator);
+          const response = generateResponse(q);
+          addMessage(response);
+          
+          // Add quick replies for follow-up questions
+          if (!q.includes("thank")) {
+            setTimeout(() => {
+              addMessage("Is there anything else you'd like to know?");
+            }, 1000);
+          }
+        }, 1000);
+      };
+
+      // Send message on Enter key
+      chatInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendBtn.click();
+        }
+      });
+
+      // Voice input
+      voiceBtn.onclick = () => {
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+          addMessage("Speech recognition is not supported in your browser. Try typing your question instead.");
+          return;
+        }
+        
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = "en-IN";
+        recognition.start();
+        
+        voiceBtn.innerHTML = "<i class='fas fa-circle'></i>";
+        voiceBtn.style.color = "#e74c3c";
+        
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          chatInput.value = transcript;
+          voiceBtn.innerHTML = "<i class='fas fa-microphone'></i>";
+          voiceBtn.style.color = "";
+        };
+        
+        recognition.onerror = () => {
+          voiceBtn.innerHTML = "<i class='fas fa-microphone'></i>";
+          voiceBtn.style.color = "";
+        };
+        
+        recognition.onend = () => {
+          voiceBtn.innerHTML = "<i class='fas fa-microphone'></i>";
+          voiceBtn.style.color = "";
+        };
+      };
+    }
+
+    // Run initialization when page loads
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

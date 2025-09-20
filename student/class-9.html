@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Class 9 — Subjects</title>
+  <style>
+    body {
+      font-family: system-ui, Arial;
+      background: #f5f7f5;
+      margin: 0;
+      color: #112;
+    }
+    header {
+      background: #4a8f3c;
+      color: #fff;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 18px auto;
+      padding: 0 16px;
+    }
+    .welcome-section {
+      background: linear-gradient(135deg, #4a8f3c, #5ba049);
+      color: white;
+      padding: 40px;
+      border-radius: 16px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .subject-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+    .subject-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .subject-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #4a8f3c;
+    }
+    .action-btn {
+      display: inline-block;
+      margin: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: #4a8f3c;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .action-btn:hover {
+      background: #3a6c2d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>Class 9 — Subjects</div>
+    <a href="./student-dashboard.html" style="color:#fff; text-decoration:underline;">Back</a>
+  </header>
+
+  <main class="wrap">
+    <div class="welcome-section">
+      <h2>Class 9</h2>
+      <p>Select a subject to continue</p>
+    </div>
+
+    <div class="subject-grid">
+      <div class="subject-card">
+        <div class="subject-title">Mathematics</div>
+        <a href="notes-maths-9.html" class="action-btn">View Notes</a>
+        <a href="quiz-9-math.html?class=9&subject=maths" class="action-btn">Attempt Quiz</a>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-title">Science</div>
+        <a href="notes-science-9.html" class="action-btn">View Notes</a>
+        <a href="quiz.html?class=9&subject=science" class="action-btn">Attempt Quiz</a>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-title">English</div>
+        <a href="notes-english-9.html" class="action-btn">View Notes</a>
+        <a href="quiz.html?class=9&subject=english" class="action-btn">Attempt Quiz</a>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-title">Social Studies</div>
+        <a href="notes-social-9.html" class="action-btn">View Notes</a>
+        <a href="quiz.html?class=9&subject=social" class="action-btn">Attempt Quiz</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

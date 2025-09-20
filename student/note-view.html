@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>View Note</title>
+  <style>
+    body { font-family: system-ui; margin: 0; background: #fff; padding: 20px; }
+    .note-title { font-size: 1.5rem; font-weight: bold; color: #4a8f3c; margin-bottom: 10px; }
+    .note-content { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div id="noteContainer">Loading...</div>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+      const supabaseUrl = "https://guesdqvwmybdhgejukdr.supabase.co";
+      const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1ZXNkcXZ3bXliZGhnZWp1a2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NTcxMDgsImV4cCI6MjA3MzQzMzEwOH0.FAG_-CBaom4LC7mKoanzFO-pi7ZZhOJE8quHO-xEsC4"; 
+      const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const noteId = urlParams.get("id");
+
+    async function loadNote() {
+      const { data, error } = await supabase
+        .from("lessons")
+        .select("title, content")
+        .eq("id", noteId)
+        .single();
+
+      if (error) {
+        document.getElementById("noteContainer").innerHTML = "❌ Error loading note.";
+        return;
+      }
+
+      document.getElementById("noteContainer").innerHTML = `
+        <div class="note-title">${data.title}</div>
+        <div class="note-content">${data.content}</div>
+      `;
+    }
+
+    loadNote();
+  </script>
+</body>
+</html>

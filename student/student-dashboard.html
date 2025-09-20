@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Dashboard — Rural Digital Education</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Roboto+Slab:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4a8f3c;
+      --primary-dark: #3a7030;
+      --accent: #ffc107;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --radius: 12px;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --trans: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f5f7f9;
+      color: #112;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 600;
+    }
+
+    /* Header */
+    header {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 16px 0;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand i {
+      font-size: 28px;
+      color: var(--primary);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #213;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--trans);
+      border: none;
+      font-family: inherit;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Main content */
+    .wrap {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* Welcome section */
+    .welcome-section {
+      background: linear-gradient(135deg, #4a8f3c, #5ba049);
+      color: white;
+      padding: 40px;
+      border-radius: 16px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome-section::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: rgba(255,255,255,0.1);
+      transform: rotate(25deg);
+    }
+
+    .welcome-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .welcome-section p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      position: relative;
+    }
+
+    /* Class grid */
+    .class-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .class-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: var(--trans);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .class-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .class-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+    }
+
+    .class-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .class-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+
+    .class-icon {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      background: rgba(74, 143, 60, 0.1);
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .welcome-section h2 {
+        font-size: 1.8rem;
+      }
+      
+      .class-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <i class="fas fa-graduation-cap"></i>
+        <h1>Rural Digital Education</h1>
+      </div>
+      <button class="btn btn-primary" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="welcome-section">
+      <h2>Welcome, Student!</h2>
+      <p>Select your Class to continue your learning journey</p>
+    </div>
+
+    <div class="class-grid">
+      <div class="class-card" data-class="7">
+        <div class="class-icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <div class="class-number">Class 7</div>
+        <div class="class-desc">Mathematics, Science, Social Studies</div>
+      </div>
+      <div class="class-card" data-class="8">
+        <div class="class-icon">
+          <i class="fas fa-calculator"></i>
+        </div>
+        <div class="class-number">Class 8</div>
+        <div class="class-desc">Advanced concepts in all subjects</div>
+      </div>
+      <div class="class-card" data-class="9">
+        <div class="class-icon">
+          <i class="fas fa-flask"></i>
+        </div>
+        <div class="class-number">Class 9</div>
+        <div class="class-desc">Foundation for board examinations</div>
+      </div>
+      <div class="class-card" data-class="10">
+        <div class="class-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="class-number">Class 10</div>
+        <div class="class-desc">Board exam preparation</div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    
+    document.querySelectorAll(".class-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const classNumber = card.dataset.class;
+        window.location.href = `class-${classNumber}.html`;
+      });
+    });
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCoFB1Hzg9_0ehfEuRFm3a3oSdAsvrStkw",
+      authDomain: "sih-project-92de3.firebaseapp.com",
+      projectId: "sih-project-92de3",
+      appId: "1:508353225334:web:f8296681c7070056c97557",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "../landing/landing.html"; // redirect to login page
+      } catch (err) {
+        alert("Logout failed: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>

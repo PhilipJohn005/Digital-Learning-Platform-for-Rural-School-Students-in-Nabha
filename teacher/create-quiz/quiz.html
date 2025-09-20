@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create & Take Quiz</title>
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f5f7f5;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px 30px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      color: #27ae60;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #27ae60;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"], input[type="number"] {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 2px solid #e8ecef;
+      background: #fafbfc;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #27ae60;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(39,174,96,0.1);
+    }
+
+    .question-block {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+      border: 1px solid #e8ecef;
+    }
+
+    .question-block:hover {
+      border-color: #27ae60;
+      box-shadow: 0 6px 18px rgba(39,174,96,0.1);
+    }
+
+    .question-block h3 {
+      color: #27ae60;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border-left: 4px solid #27ae60;
+      background: #f9f9f9;
+    }
+
+    .options h4 {
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .option-input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #e8ecef;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #4a8f3c;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .btn:hover {
+      background: #3a7230;
+    }
+
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+
+    .wrong {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 768px){
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Quiz Management System</h1>
+    </div>
+
+    <div class="section">
+      <h2>Create Quiz</h2>
+      
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="lesson-title">Lesson Title</label>
+          <input type="text" id="lesson-title" placeholder="Enter lesson title" required />
+        </div>
+        <div class="form-group">
+          <label for="lesson-subject">Subject</label>
+          <input type="text" id="lesson-subject" placeholder="Enter subject" required />
+        </div>
+        <div class="form-group">
+          <label for="lesson-week">Week</label>
+          <input type="text" id="lesson-week" placeholder="e.g., 1" required />
+        </div>
+        <div class="form-group">
+          <label for="lesson-class">Class</label>
+          <input type="text" id="lesson-class" placeholder="e.g., 9" required />
+        </div>
+      </div>
+
+      <div id="questions-container"></div>
+      
+      <div style="margin: 25px 0;">
+        <button id="add-question" class="btn">Add Question</button>
+      </div>
+      
+      <button id="submit-quiz" class="btn">Save Quiz</button>
+    </div>
+  </div>
+
+  <script>
+    const questionsContainer = document.getElementById("questions-container");
+    const addQuestionBtn = document.getElementById("add-question");
+    const submitQuizBtn = document.getElementById("submit-quiz");
+    let questionCount = 0;
+
+    addQuestionBtn.addEventListener("click", () => {
+      questionCount++;
+      const block = document.createElement("div");
+      block.className = "question-block";
+      block.innerHTML = `
+        <h3>Question ${questionCount}</h3>
+        <div class="form-group">
+          <label>Question Text</label>
+          <input type="text" class="question-text" placeholder="Enter your question">
+        </div>
+        <div class="options">
+          <h4>Answer Options</h4>
+          <div><input type="text" class="option-input" placeholder="Option 1"></div>
+          <div><input type="text" class="option-input" placeholder="Option 2"></div>
+          <div><input type="text" class="option-input" placeholder="Option 3"></div>
+          <div><input type="text" class="option-input" placeholder="Option 4"></div>
+        </div>
+        <div class="form-group">
+          <label>Correct Answer</label>
+          <input type="text" class="correct-answer" placeholder="Type exact option text">
+        </div>
+      `;
+      questionsContainer.appendChild(block);
+    });
+
+    submitQuizBtn.addEventListener("click", async () => {
+      const title = document.getElementById("lesson-title").value.trim();
+      const subject = document.getElementById("lesson-subject").value.trim();
+      const week = document.getElementById("lesson-week").value.trim();
+      const className = document.getElementById("lesson-class").value.trim();
+
+      if (!title || !subject || !week || !className) {
+        alert("Please fill lesson details");
+        return;
+      }
+
+      const questionBlocks = document.querySelectorAll(".question-block");
+      const quizData = [];
+
+      questionBlocks.forEach((block, index) => {
+        const questionText = block.querySelector(".question-text").value.trim();
+        const optionInputs = block.querySelectorAll(".option-input");
+        const options = Array.from(optionInputs).map(inp => inp.value.trim()).filter(Boolean);
+        const correctAnswer = block.querySelector(".correct-answer").value.trim();
+
+        if (!questionText || options.length < 2 || !correctAnswer) {
+          alert(`Please complete Question ${index + 1}`);
+          return;
+        }
+
+        quizData.push({
+          id: `q-${Date.now()}-${index}`,
+          question: questionText,
+          options,
+          correctAnswer
+        });
+      });
+
+      try {
+        const response = await fetch("http://localhost:3000/quizzes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title, subject, week, className, data: quizData })
+        });
+
+        if (!response.ok) throw new Error("Failed to save quiz");
+        const result = await response.json();
+        alert("Quiz saved successfully with ID: " + result.id);
+      } catch (err) {
+        alert("Error: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
